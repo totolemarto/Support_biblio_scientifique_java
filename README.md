@@ -9,3 +9,4 @@
 
 [lien du projet](https://im2ag-moodle.univ-grenoble-alpes.fr/pluginfile.php/33094/mod_resource/content/9/projet_devops.pdf)
 
+[Documentation du projet](https://totolemarto.github.io/Support_biblio_scientifique_java/com/biblio_scientifique/app/package-summary.html)
