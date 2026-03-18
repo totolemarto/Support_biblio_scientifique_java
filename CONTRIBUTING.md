@@ -13,8 +13,10 @@ Thank you for your interest in contributing to Support Biblio Scientifique! We w
 - Use the following command to clone your forked repository to your local machine.
 
    ```bash
-   git clone  https://github.com/totolemarto/Support_biblio_scientifique_java.git
+   git clone  https://github.com/<your-github-username>/Support_biblio_scientifique_java.git
    ```
+  
+**Note :** Replace `<your-github-username>` with your actual GitHub username.
 
 3. Create a new branch for your changes.
 
