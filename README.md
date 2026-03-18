@@ -10,15 +10,11 @@
 
 ## What is it?
 
----
-
 YASCL is a Java library for scientific computing. It provides a set of tools inspired by [NumPy](https://numpy.org/).
 
 The project is part of the M1 DevOps course at the University of Grenoble Alpes. The subject can be found [here](https://im2ag-moodle.univ-grenoble-alpes.fr/pluginfile.php/33094/mod_resource/content/9/projet_devops.pdf).
 
 ## Table of Contents
-
----
 
 - [Main Features](#main-features)
 - [License](#license)
@@ -29,13 +25,9 @@ The project is part of the M1 DevOps course at the University of Grenoble Alpes.
 
 ## Main Features
 
----
-
 To be added.
 
 ## Where to get it?
-
----
 
 The source code of the project is available on [GitHub](https://github.com/totolemarto/Support_biblio_scientifique_java).
 
@@ -43,25 +35,17 @@ The source code of the project is available on [GitHub](https://github.com/totol
 
 ## Dependencies
 
----
-
 For the moment, the project does not have any external dependencies. However, it may use some libraries in the future.
 
 ## Installation from source code
-
----
 
 To be added.
 
 ## License
 
----
-
 [MIT License](LICENSE)
 
 ## Documentation
-
----
 
 The documentation of the project is available on [GitHub Pages](https://totolemarto.github.io/Support_biblio_scientifique_java/).
 
