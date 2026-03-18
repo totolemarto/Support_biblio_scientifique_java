@@ -2,3 +2,8 @@ target
 .settings
 .classpath
 .project
+.idea
+*.iml
+*.DS_Store
+*.vscode
+*.env
