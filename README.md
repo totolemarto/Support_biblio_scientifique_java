@@ -1,6 +1,7 @@
 [![License](https://img.shields.io/github/license/totolemarto/Support_biblio_scientifique_java)](LICENSE)
 [![Java Version](https://img.shields.io/badge/Java-21-blue)](https://docs.oracle.com/en/java/javase/21/)
 [![Github Pages](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/github-pages.yaml)
+[![Maven Tests](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/mvn-test.yaml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/mvn-test.yaml)
 [![Some Workflow](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/some_workflow.yml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/some_workflow.yml)
 
 
