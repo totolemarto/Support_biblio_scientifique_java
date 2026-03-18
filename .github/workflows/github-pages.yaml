@@ -51,8 +51,6 @@ jobs:
 
       - name: Prepare GitHub Pages content
         run: |
-          mkdir public
-
           cp -r gh-pages/* public/
           cp -r target/reports/apidocs public/javadoc
           cp -r target/site/jacoco public/coverage
