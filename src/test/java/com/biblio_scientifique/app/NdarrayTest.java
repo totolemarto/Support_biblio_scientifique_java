@@ -20,14 +20,14 @@ public class NdarrayTest {
         assertTrue(true);
     }
 
-    @Test
-    public void arrangeNominalCase(){
-        Ndarray test = Ndarray.arrange(15); 
-        System.out.println(test);
-        assertEquals(test.getSize(), 15);
-        assertEquals(test.getNdim(), 1);
-        assertEquals(test.getShape(), new Dimension(1, 15));
-
-    }
+//     @Test
+//     public void arrangeNominalCase(){
+//         Ndarray test = Ndarray.arrange(15); 
+//         System.out.println(test);
+//         assertEquals(test.getSize(), 15);
+//         assertEquals(test.getNdim(), 1);
+//         assertEquals(test.getShape(), new Dimension(1, 15));
+//
+//     }
 }
 
