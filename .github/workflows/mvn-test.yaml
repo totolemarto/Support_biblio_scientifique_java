@@ -1,11 +1,10 @@
-name: Build & Deploy javac Documentation
+name: Run Maven Tests
 
 on:
   workflow_dispatch:
 
   push:
-    branches:
-      - main
+    branches: [ main, development, feature/* ]
   pull_request:
     branches:
       - main
@@ -28,12 +27,11 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      - name: Build documentation
+      - name: Run Maven Tests
         run: |
-          mvn clean javadoc:javadoc
+          mvn clean test
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/reports/apidocs
+          name: test-results
