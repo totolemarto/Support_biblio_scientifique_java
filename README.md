@@ -5,3 +5,7 @@
 
 **Todo :**
 - [ ] Ajouter des bagdes pour les CI/CD, couverture de code, etc.
+
+
+[lien du projet](https://im2ag-moodle.univ-grenoble-alpes.fr/pluginfile.php/33094/mod_resource/content/9/projet_devops.pdf)
+
