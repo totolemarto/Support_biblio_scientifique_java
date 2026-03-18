@@ -16,17 +16,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache: 'maven'
 
       - name: Build documentation
         run: |
-          ./mavenw clean javadoc:javadoc
+          mnv clean javadoc:javadoc
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
