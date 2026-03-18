@@ -32,7 +32,7 @@ jobs:
       - name: Build documentation
         run: |
           mvn clean
-          mvn verify -Pci
+          mvn verify
           mvn javadoc:javadoc
 
       # TODO: Improve extraction
