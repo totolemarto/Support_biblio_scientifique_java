@@ -14,6 +14,6 @@ public class App {
      * @param args  classical args from system
      */
     public static void main(String[] args) {
-        logger.info("Hello World!");
+        logger.info("Hello World!\n");
     }
 }

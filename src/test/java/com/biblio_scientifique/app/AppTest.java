@@ -3,9 +3,12 @@ package com.biblio_scientifique.app;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,40 +17,93 @@ import org.junit.jupiter.api.Test;
  */
 class AppTest {
 
+    private static final class CapturingHandler extends Handler {
+        private final List<LogRecord> records = new ArrayList<>();
+
+        @Override
+        public void publish(LogRecord record) {
+            records.add(record);
+        }
+
+        @Override
+        public void flush() {
+            // no-op
+        }
+
+        @Override
+        public void close() {
+            // no-op
+        }
+    }
+
+    private static List<LogRecord> invokeMainAndCaptureLogs(String[] args) {
+        Logger appLogger = Logger.getLogger(App.class.getName());
+        CapturingHandler handler = new CapturingHandler();
+        boolean previousUseParentHandlers = appLogger.getUseParentHandlers();
+
+        appLogger.setUseParentHandlers(false);
+        appLogger.addHandler(handler);
+
+        try {
+            App.main(args);
+            return handler.records;
+        } finally {
+            appLogger.removeHandler(handler);
+            appLogger.setUseParentHandlers(previousUseParentHandlers);
+        }
+    }
+
     @Test
     void constructorTest() {
         assertDoesNotThrow(App::new);
     }
 
     @Test
-    void printsHelloWorldWhenCalledWithNoArguments() {
-        String output = captureMainOutput(new String[0]);
-        assertEquals("Hello World!" + System.lineSeparator(), output);
+    void mainLogsHelloWorldWhenArgsAreEmpty() {
+        List<LogRecord> records = assertDoesNotThrow(() -> invokeMainAndCaptureLogs(new String[0]));
+
+        assertEquals(1, records.size());
+        assertEquals(Level.INFO, records.getFirst().getLevel());
+        assertEquals("Hello World!\n", records.getFirst().getMessage());
     }
 
     @Test
-    void printsHelloWorldWhenArgumentsAreNull() {
-        assertDoesNotThrow(() -> {
-            String output = captureMainOutput(null);
-            assertEquals("Hello World!" + System.lineSeparator(), output);
-        });
+    void mainLogsHelloWorldWhenArgsAreNull() {
+        List<LogRecord> records = assertDoesNotThrow(() -> invokeMainAndCaptureLogs(null));
+
+        assertEquals(1, records.size());
+        assertEquals(Level.INFO, records.getFirst().getLevel());
+        assertEquals("Hello World!\n", records.getFirst().getMessage());
     }
 
     @Test
-    void ignoresProvidedArgumentsAndPrintsHelloWorld() {
-        String output = captureMainOutput(new String[] { "--name", "toto" });
-        assertEquals("Hello World!" + System.lineSeparator(), output);
+    void mainIgnoresProvidedArgumentsAndStillLogsHelloWorld() {
+        List<LogRecord> records = assertDoesNotThrow(() -> invokeMainAndCaptureLogs(new String[] { "alpha", "beta" }));
+
+        assertEquals(1, records.size());
+        assertEquals(Level.INFO, records.getFirst().getLevel());
+        assertEquals("Hello World!\n", records.getFirst().getMessage());
     }
 
-    private String captureMainOutput(String[] args) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        try (PrintStream printStream = new PrintStream(outputStream, true, StandardCharsets.UTF_8)) {
-            System.setOut(printStream);
-            App.main(args);
+    @Test
+    void mainCanBeCalledMultipleTimesAndLogsEachInvocation() {
+        Logger appLogger = Logger.getLogger(App.class.getName());
+        CapturingHandler handler = new CapturingHandler();
+        boolean previousUseParentHandlers = appLogger.getUseParentHandlers();
+
+        appLogger.setUseParentHandlers(false);
+        appLogger.addHandler(handler);
+
+        try {
+            assertDoesNotThrow(() -> App.main(new String[0]));
+            assertDoesNotThrow(() -> App.main(new String[] { "x" }));
+
+            assertEquals(2, handler.records.size());
+            assertEquals("Hello World!\n", handler.records.get(0).getMessage());
+            assertEquals("Hello World!\n", handler.records.get(1).getMessage());
         } finally {
-            System.setOut(originalOut);
+            appLogger.removeHandler(handler);
+            appLogger.setUseParentHandlers(previousUseParentHandlers);
         }
-        return outputStream.toString(StandardCharsets.UTF_8);
     }
 }
