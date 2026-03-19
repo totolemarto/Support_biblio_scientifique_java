@@ -1,14 +1,54 @@
-[![License](https://img.shields.io/github/license/totolemarto/Support_biblio_scientifique_java)](LICENSE)
-[![Java Version](https://img.shields.io/badge/Java-21-blue)](https://docs.oracle.com/en/java/javase/21/)
-[![Github Pages](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/github-pages.yaml)
-[![Maven Tests](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/mvn-test.yaml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/mvn-test.yaml)
-[![Some Workflow](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/some_workflow.yml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/some_workflow.yml)
+# YASCL - Yet Another Scientific Computing Library in Java
 
+-----------------
 
-**Todo :**
-- [ ] Ajouter des bagdes pour les CI/CD, couverture de code, etc.
+|                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **General**        | [![License](https://img.shields.io/github/license/totolemarto/Support_biblio_scientifique_java)](LICENSE) [![Java Version](https://img.shields.io/badge/Java-21-blue)](https://docs.oracle.com/en/java/javase/21/)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **SonarQube**      | [![Quality Gate Status](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=m1-devops-tp-ndarray-ap-pt&metric=alert_status&token=sqb_8e6dfef5f485156d34ebe017b0c56e00a4909733)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=m1-devops-tp-ndarray-ap-pt) [![Coverage](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=m1-devops-tp-ndarray-ap-pt&metric=coverage&token=sqb_8e6dfef5f485156d34ebe017b0c56e00a4909733)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=m1-devops-tp-ndarray-ap-pt) [![Security Rating](https://im2ag-sonar.univ-grenoble-alpes.fr/api/project_badges/measure?project=m1-devops-tp-ndarray-ap-pt&metric=software_quality_security_rating&token=sqb_8e6dfef5f485156d34ebe017b0c56e00a4909733)](https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=m1-devops-tp-ndarray-ap-pt) |
+| **GitHub Actions** | [![Github Pages](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/github-pages.yaml) [![Maven Tests](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/mvn-test.yaml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/mvn-test.yaml) [![SonarQube](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/sonarqube.yaml/badge.svg)](https://github.com/totolemarto/Support_biblio_scientifique_java/actions/workflows/sonarqube.yaml)                                                                                                                                                                                            |
 
+## What is it?
 
-[lien du projet](https://im2ag-moodle.univ-grenoble-alpes.fr/pluginfile.php/33094/mod_resource/content/9/projet_devops.pdf)
+YASCL is a Java library for scientific computing. It provides a set of tools inspired by [NumPy](https://numpy.org/).
 
-[Documentation du projet](https://totolemarto.github.io/Support_biblio_scientifique_java/com/biblio_scientifique/app/package-summary.html)
+The project is part of the M1 DevOps course at the University of Grenoble Alpes. The subject can be found [here](https://im2ag-moodle.univ-grenoble-alpes.fr/pluginfile.php/33094/mod_resource/content/9/projet_devops.pdf).
+
+## Table of Contents
+
+- [Main Features](#main-features)
+- [License](#license)
+- [Where to get it?](#where-to-get-it)
+- [Dependencies](#dependencies)
+- [Installation from source code](#installation-from-source-code)
+- [Documentation](#documentation)
+
+## Main Features
+
+To be added.
+
+## Where to get it?
+
+The source code of the project is available on [GitHub](https://github.com/totolemarto/Support_biblio_scientifique_java).
+
+*Todo: add a link to the Maven repository (or other service) where the library can be downloaded.*
+
+## Dependencies
+
+For the moment, the project does not have any external dependencies. However, it may use some libraries in the future.
+
+## Installation from source code
+
+To be added.
+
+## License
+
+[MIT License](LICENSE)
+
+## Documentation
+
+The documentation of the project is available on [GitHub Pages](https://totolemarto.github.io/Support_biblio_scientifique_java/).
+
+-----------------
+
+[Back to top](#yascl---yet-another-scientific-computing-library-in-java)
