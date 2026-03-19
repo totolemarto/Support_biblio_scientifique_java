@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
-public class NdarrayTest {
+class NdarrayTest {
 
     @Test
-    public void createsArrayWithExplicitConstructorValues() {
+    void createsArrayWithExplicitConstructorValues() {
         Dimension shape = new Dimension(2, 3);
         Ndarray ndarray = new Ndarray(2, shape, 6);
 
@@ -24,7 +24,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void createsOneDimensionalArrayWithEmptyShapeAndNoSizeWhenUsingNdimConstructor() {
+    void createsOneDimensionalArrayWithEmptyShapeAndNoSizeWhenUsingNdimConstructor() {
         Ndarray ndarray = new Ndarray(1);
 
         assertEquals(1, ndarray.getNdim());
@@ -33,7 +33,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void createsDefaultArrayWithZeroAndNullFields() {
+    void createsDefaultArrayWithZeroAndNullFields() {
         Ndarray ndarray = new Ndarray();
 
         assertEquals(0, ndarray.getNdim());
@@ -42,7 +42,7 @@ public class NdarrayTest {
     }
 
     @Test
-    public void updatesFieldsWithSettersIncludingNullShape() {
+    void updatesFieldsWithSettersIncludingNullShape() {
         Ndarray ndarray = new Ndarray();
 
         ndarray.setNdim(3);
@@ -55,14 +55,14 @@ public class NdarrayTest {
     }
 
     @Test
-    public void toStringContainsDataSectionWhenArrayIsCreatedWithNdimConstructor() {
+    void toStringContainsDataSectionWhenArrayIsCreatedWithNdimConstructor() {
         Ndarray ndarray = new Ndarray(1);
 
         assertTrue(ndarray.toString().contains("data=[]"));
     }
 
     @Test
-    public void toStringContainsNullDataForConstructorsWithoutDataInitialization() {
+    void toStringContainsNullDataForConstructorsWithoutDataInitialization() {
         Ndarray defaultArray = new Ndarray();
         Ndarray explicitArray = new Ndarray(2, new Dimension(1, 2), 2);
 

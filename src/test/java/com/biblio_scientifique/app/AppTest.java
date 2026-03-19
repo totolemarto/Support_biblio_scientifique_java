@@ -12,21 +12,21 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
+class AppTest {
 
     @Test
-    public void constructorTest() {
+    void constructorTest() {
         assertDoesNotThrow(App::new);
     }
 
     @Test
-    public void printsHelloWorldWhenCalledWithNoArguments() {
+    void printsHelloWorldWhenCalledWithNoArguments() {
         String output = captureMainOutput(new String[0]);
         assertEquals("Hello World!" + System.lineSeparator(), output);
     }
 
     @Test
-    public void printsHelloWorldWhenArgumentsAreNull() {
+    void printsHelloWorldWhenArgumentsAreNull() {
         assertDoesNotThrow(() -> {
             String output = captureMainOutput(null);
             assertEquals("Hello World!" + System.lineSeparator(), output);
@@ -34,7 +34,7 @@ public class AppTest {
     }
 
     @Test
-    public void ignoresProvidedArgumentsAndPrintsHelloWorld() {
+    void ignoresProvidedArgumentsAndPrintsHelloWorld() {
         String output = captureMainOutput(new String[] { "--name", "toto" });
         assertEquals("Hello World!" + System.lineSeparator(), output);
     }
@@ -42,8 +42,8 @@ public class AppTest {
     private String captureMainOutput(String[] args) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
-        try {
-            System.setOut(new PrintStream(outputStream, true, StandardCharsets.UTF_8));
+        try (PrintStream printStream = new PrintStream(outputStream, true, StandardCharsets.UTF_8)) {
+            System.setOut(printStream);
             App.main(args);
         } finally {
             System.setOut(originalOut);
