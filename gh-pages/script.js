@@ -7,7 +7,7 @@ async function loadMetrics() {
         document.getElementById('coverage').textContent = data.coverage + "%";
         document.getElementById('tests').textContent = data.tests;
         document.getElementById('status').textContent = data.status;
-        document.getElementById('lastUpdated').textContent = new Date(data.timestamp).toLocaleString();
+        document.getElementById('lastUpdated').textContent = new Date(data.timestamp * 1000).toLocaleString();
 
     } catch (e) {
         console.warn("Metrics not available");
