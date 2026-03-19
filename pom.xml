@@ -7,8 +7,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <name>project_dev_ops</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
+    <url>https://totolemarto.github.io/Support_biblio_scientifique_java/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
