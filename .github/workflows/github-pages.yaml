@@ -40,13 +40,16 @@ jobs:
         run: |
           mkdir -p public
 
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           COVERAGE=$(grep -o 'Total[^%]*%' target/site/jacoco/index.html | grep -o '[0-9]\+%' | head -n1 | tr -d '%')
           TESTS=$(grep -o 'tests="[0-9]*"' target/surefire-reports/*.xml | grep -o '[0-9]*' | awk '{s+=$1} END {print s}')
 
           echo "{
+            \"version\": \"$VERSION\",
             \"coverage\": ${COVERAGE:-0},
             \"tests\": ${TESTS:-0},
-            \"status\": \"OK\"
+            \"status\": \"OK\",
+            \"timestamp\": $(date +%s)
           }" > public/metrics.json
 
       - name: Prepare GitHub Pages content
