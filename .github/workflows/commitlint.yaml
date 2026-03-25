@@ -1,0 +1,27 @@
+name: Commitlint
+
+on:
+  pull_request:
+    branches: [ main, development ]
+    types: [ opened, synchronize, reopened, edited ]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  lint-commits:
+    name: Lint Commit Messages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Lint commit messages
+        uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: commitlint.config.js
+          failOnWarnings: false
+          helpURL: https://github.com/totolemarto/Support_biblio_scientifique_java/blob/main/CONTRIBUTING.md
