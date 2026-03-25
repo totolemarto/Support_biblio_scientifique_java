@@ -45,4 +45,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=m1-devops-tp-ndarray-ap-pt -Dsonar.projectName='m1-devops-tp-ndarray'
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=projet-m1-devops-yascl -Dsonar.projectName='projet-m1-devops-yascl'
