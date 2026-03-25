@@ -1,6 +1,7 @@
 package com.biblio_scientifique.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Dimension;
@@ -10,24 +11,63 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
-public class NdarrayTest {
+class NdarrayTest {
 
-    /**
-     * Rigorous Test :-)
-     */
     @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
+    void createsArrayWithExplicitConstructorValues() {
+        Dimension shape = new Dimension(2, 3);
+        Ndarray ndarray = new Ndarray(2, shape, 6);
+
+        assertEquals(2, ndarray.getNdim());
+        assertEquals(shape, ndarray.getShape());
+        assertEquals(6, ndarray.getSize());
     }
 
-//     @Test
-//     public void arrangeNominalCase(){
-//         Ndarray test = Ndarray.arrange(15); 
-//         System.out.println(test);
-//         assertEquals(test.getSize(), 15);
-//         assertEquals(test.getNdim(), 1);
-//         assertEquals(test.getShape(), new Dimension(1, 15));
-//
-//     }
+    @Test
+    void createsOneDimensionalArrayWithEmptyShapeAndNoSizeWhenUsingNdimConstructor() {
+        Ndarray ndarray = new Ndarray(1);
+
+        assertEquals(1, ndarray.getNdim());
+        assertEquals(new Dimension(0, 0), ndarray.getShape());
+        assertEquals(0, ndarray.getSize());
+    }
+
+    @Test
+    void createsDefaultArrayWithZeroAndNullFields() {
+        Ndarray ndarray = new Ndarray();
+
+        assertEquals(0, ndarray.getNdim());
+        assertEquals(0, ndarray.getSize());
+        assertNull(ndarray.getShape());
+    }
+
+    @Test
+    void updatesFieldsWithSettersIncludingNullShape() {
+        Ndarray ndarray = new Ndarray();
+
+        ndarray.setNdim(3);
+        ndarray.setSize(12);
+        ndarray.setShape(null);
+
+        assertEquals(3, ndarray.getNdim());
+        assertEquals(12, ndarray.getSize());
+        assertNull(ndarray.getShape());
+    }
+
+    @Test
+    void toStringContainsDataSectionWhenArrayIsCreatedWithNdimConstructor() {
+        Ndarray ndarray = new Ndarray(1);
+
+        assertTrue(ndarray.toString().contains("data=[]"));
+    }
+
+    @Test
+    void toStringContainsNullDataForConstructorsWithoutDataInitialization() {
+        Ndarray defaultArray = new Ndarray();
+        Ndarray explicitArray = new Ndarray(2, new Dimension(1, 2), 2);
+
+        assertTrue(defaultArray.toString().contains("data=null"));
+        assertTrue(explicitArray.toString().contains("data=null"));
+    }
 }
 

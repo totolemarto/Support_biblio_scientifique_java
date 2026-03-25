@@ -31,10 +31,35 @@ jobs:
 
       - name: Build documentation
         run: |
-          mvn clean javadoc:javadoc
+          mvn clean
+          mvn verify
+          mvn javadoc:javadoc
+
+      # TODO: Improve extraction
+      - name: Extract metrics
+        run: |
+          mkdir -p public
+
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          COVERAGE=$(grep -o 'Total[^%]*%' target/site/jacoco/index.html | grep -o '[0-9]\+%' | head -n1 | tr -d '%')
+          TESTS=$(grep -o 'tests="[0-9]*"' target/surefire-reports/*.xml | grep -o '[0-9]*' | awk '{s+=$1} END {print s}')
+
+          echo "{
+            \"version\": \"$VERSION\",
+            \"coverage\": ${COVERAGE:-0},
+            \"tests\": ${TESTS:-0},
+            \"status\": \"OK\",
+            \"timestamp\": $(date +%s)
+          }" > public/metrics.json
+
+      - name: Prepare GitHub Pages content
+        run: |
+          cp -r gh-pages/* public/
+          cp -r target/reports/apidocs public/javadoc
+          cp -r target/site/jacoco public/coverage
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/reports/apidocs
+          publish_dir: ./public
