@@ -2,6 +2,11 @@ name: Build & Deploy Documentation (release)
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag of the release (ex: v1.0.0)"
+        required: true
+        default: ""
 
   release:
     types: [created]
@@ -25,7 +30,12 @@ jobs:
 
       - name: Resolve release version
         id: version
-        run: echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          if [ -z "$TAG" ]; then
+            TAG="${GITHUB_REF_NAME}"
+          fi
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
       - name: Build - tests, mutation, javadoc, Allure
         run: |
