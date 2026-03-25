@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -68,6 +70,16 @@ class NdarrayTest {
 
         assertTrue(defaultArray.toString().contains("data=null"));
         assertTrue(explicitArray.toString().contains("data=null"));
+    }
+
+    @Test 
+    void arrayConstructorWithNull() {
+        float parameters[] = {1, 2, 3};
+        Ndarray my_array = Ndarray.array(parameters);
+        for (int i = 0; i < my_array.get_values(0, 0).size(); i++){
+            assertEquals(parameters[i], my_array.get_values(0, 0).get(i));
+        }
+        assertEquals(3, my_array.get_values(0, 0).size());
     }
 }
 
