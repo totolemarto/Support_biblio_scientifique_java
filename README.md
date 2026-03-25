@@ -22,6 +22,7 @@ The project is part of the M1 DevOps course at the University of Grenoble Alpes.
 - [Dependencies](#dependencies)
 - [Installation from source code](#installation-from-source-code)
 - [Documentation](#documentation)
+- [Good practices](#good-practices)
 
 ## Main Features
 
@@ -48,6 +49,19 @@ To be added.
 ## Documentation
 
 The documentation of the project is available on [GitHub Pages](https://totolemarto.github.io/Support_biblio_scientifique_java/).
+
+## Good practices
+
+
+Intégration continue ✅
+
+Insertion de Badges ✅
+
+Valorisation de votre bibliothéque ✅
+
+Utiliser SonarQube pour l’analyse statique de code ✅
+
+Livraison continue (Maven) ✅
 
 -----------------
 
