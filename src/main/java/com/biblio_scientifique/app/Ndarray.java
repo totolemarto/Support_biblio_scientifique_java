@@ -2,6 +2,7 @@ package com.biblio_scientifique.app;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ndarray{
 
@@ -25,29 +26,30 @@ public class Ndarray{
         this.shape = new Dimension(0, 0);
     }
 
-    // public static Ndarray arrange(int maxi){
-    //
-    //     Ndarray result = new Ndarray(1);
-    //     for (float i = 0; i < maxi; i++){
-    //         result.appendValue(i, 0);
-    //     }
-    //     return result;
-    // }
-    //
-    // public boolean appendValue(float value, int dimension){
-    //     boolean result = true;
-    //     if (data.size() < dimension){
-    //         for (int i = data.size(); i < dimension; i++){
-    //             ArrayList<Float> current = new ArrayList<Float>();
-    //             for (int j = 0; j < size; j++){
-    //                 current.add(0f);
-    //             }
-    //             data.add(current);
-    //         }
-    //     }
-    //     return result;
-    // }
-    //
+    public static Ndarray arrange(int maxi){
+
+        Ndarray result = new Ndarray(1);
+        for (float i = 0; i < maxi; i++){
+            result.appendValue(i, 0);
+        }
+        return result;
+    }
+
+    
+    public boolean appendValue(float value, int dimension){
+        boolean result = true;
+        if (data.size() < dimension){
+            for (int i = data.size(); i < dimension; i++){
+                ArrayList<Float> current = new ArrayList<Float>();
+                for (int j = 0; j < size; j++){
+                    current.add(0f);
+                }
+                data.add(current);
+            }
+        }
+        return result;
+    }
+
 
     @Override
     public String toString() {
@@ -77,7 +79,33 @@ public class Ndarray{
     public void setSize(int size) {
         this.size = size;
     }
+
+    public void insert(foat value, int dimension, int row){
+
+
+    }
     
+    // • zeros() : Cr´eation d’un ndarray rempli de z´eros
+    public Ndarray zeros(){
+        return new Ndarray(0);
+    }
+
+    // • array() : Cr´eation `a partir d’un tableau
+    public Ndarray array(Arrays values){
+        Ndarray result = new Ndarray(1);
+        for (float value : values){
+            result.insert(value, 0, 1);
+        }
+        return new Ndarray(0);
+    }
+
+    public Ndarray add(Ndarray other){
+        Ndarray result = new Ndarray();
+        
+
+        return result;
+
+    }
 
 }
 
@@ -98,8 +126,6 @@ public class Ndarray{
     ndarray.size.
     Fonctions de cr´eation Pour cr´eer vos ndarray, votre biblioth`eque doit fournir les fonctions de
     cr´eation suivantes (d´ecrites ici) :
-    • array() : Cr´eation `a partir d’un tableau
-    • zeros() : Cr´eation d’un ndarray rempli de z´eros
     • arange() : Cr´eation d’un ndarray initialis´e avec une s´equence de nombres.
     Affichage Vous devez fournir un affichage tel que d´ecrit ici.
     Op´erations de base Vous devez supporter des op´erations de bases telles que d´ecrites ici. Vous devrez
