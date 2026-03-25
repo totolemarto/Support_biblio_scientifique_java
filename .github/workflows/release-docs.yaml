@@ -35,11 +35,11 @@ jobs:
 
       - name: Inject theme and obsolete banner
         run: |
-          python3 .github/scripts/inject_theme.py \
+          python3 scripts/inject_theme.py \
             target/site/jacoco \
             gh-pages/custom-theme.css \
             --banner
-          python3 .github/scripts/inject_theme.py \
+          python3 scripts/inject_theme.py \
             target/pit-reports \
             gh-pages/custom-theme.css \
             --banner
