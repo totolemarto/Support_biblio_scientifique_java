@@ -61,6 +61,8 @@ Valorisation de votre bibliothéque ✅
 
 Utiliser SonarQube pour l’analyse statique de code ✅
 
+Livraison continue (Maven) ✅
+
 -----------------
 
 [Back to top](#yascl---yet-another-scientific-computing-library-in-java)
