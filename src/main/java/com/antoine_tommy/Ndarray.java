@@ -28,29 +28,29 @@ public class Ndarray{
         this.shape = new Dimension(0, 0);
     }
 
-    public static Ndarray arrange(int maxi){
-
-        Ndarray result = new Ndarray(1);
-        for (float i = 0; i < maxi; i++){
-            result.appendValue(i, 0);
-        }
-        return result;
-    }
-
-    
-    public boolean appendValue(float value, int dimension){
-        boolean result = true;
-        if (data.size() < dimension){
-            for (int i = data.size(); i < dimension; i++){
-                ArrayList<Float> current = new ArrayList<Float>();
-                for (int j = 0; j < size; j++){
-                    current.add(0f);
-                }
-                data.add(current);
-            }
-        }
-        return result;
-    }
+    // public static Ndarray arrange(int maxi){
+    //
+    //     Ndarray result = new Ndarray(1);
+    //     for (float i = 0; i < maxi; i++){
+    //         result.appendValue(i, 0);
+    //     }
+    //     return result;
+    // }
+    //
+    //
+    // public boolean appendValue(float value, int dimension){
+    //     boolean result = true;
+    //     if (data.size() < dimension){
+    //         for (int i = data.size(); i < dimension; i++){
+    //             ArrayList<Float> current = new ArrayList<Float>();
+    //             for (int j = 0; j < size; j++){
+    //                 current.add(0f);
+    //             }
+    //             data.add(current);
+    //         }
+    //     }
+    //     return result;
+    // }
 
 
     @Override
@@ -90,7 +90,7 @@ public class Ndarray{
     }
     
     // • zeros() : Cr´eation d’un ndarray rempli de z´eros
-    public Ndarray zeros(){
+    public static Ndarray zeros(){
         return new Ndarray(0);
     }
 
@@ -107,10 +107,10 @@ public class Ndarray{
         return data.get(row);
     }
 
-    public Ndarray add(Ndarray other){
-        Ndarray result = new Ndarray();
-        return result;
-    }
+    // public Ndarray add(Ndarray other){
+    //     Ndarray result = new Ndarray();
+    //     return result;
+    // }
 
 }
 

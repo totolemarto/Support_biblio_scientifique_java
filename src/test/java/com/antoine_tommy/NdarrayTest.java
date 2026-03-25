@@ -81,5 +81,13 @@ class NdarrayTest {
         }
         assertEquals(3, my_array.get_values(0, 0).size());
     }
+
+    @Test
+    void zeroConstructor(){
+        Ndarray tmp = Ndarray.zeros();
+        assertEquals(0, tmp.getNdim());
+        assertEquals(0, tmp.getSize());
+        assertEquals(new Dimension(0, 0), tmp.getShape());
+    }
 }
 
