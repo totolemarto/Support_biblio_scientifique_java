@@ -1,4 +1,4 @@
-package com.biblio_scientifique.app;
+package com.antoine_tommy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

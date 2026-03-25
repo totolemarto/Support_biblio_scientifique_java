@@ -1,4 +1,4 @@
-package com.biblio_scientifique.app;
+package com.antoine_tommy;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
