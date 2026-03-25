@@ -3,16 +3,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.antoine_tommy</groupId>
-    <artifactId>project_dev_ops</artifactId>
+    <artifactId>yascl</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>project_dev_ops</name>
+    <name>yascl</name>
     <url>https://totolemarto.github.io/Support_biblio_scientifique_java/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Antoine and Tommy Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/totolemarto/Support_biblio_scientifique_java</url>
+        </repository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
