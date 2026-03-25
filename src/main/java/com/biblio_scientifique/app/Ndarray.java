@@ -3,6 +3,8 @@ package com.biblio_scientifique.app;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class Ndarray{
 
@@ -80,9 +82,8 @@ public class Ndarray{
         this.size = size;
     }
 
-    public void insert(foat value, int dimension, int row){
-
-
+    public void insert(float value, int dimension, int row){
+        data.get(row).add(value);
     }
     
     // • zeros() : Cr´eation d’un ndarray rempli de z´eros
@@ -91,20 +92,21 @@ public class Ndarray{
     }
 
     // • array() : Cr´eation `a partir d’un tableau
-    public Ndarray array(Arrays values){
+    public static Ndarray array(float[] values){
         Ndarray result = new Ndarray(1);
         for (float value : values){
             result.insert(value, 0, 1);
         }
-        return new Ndarray(0);
+        return result;
+    }
+
+    public ArrayList<Float> get_values(int dimension, int row) {
+        return data.get(row);
     }
 
     public Ndarray add(Ndarray other){
         Ndarray result = new Ndarray();
-        
-
         return result;
-
     }
 
 }
