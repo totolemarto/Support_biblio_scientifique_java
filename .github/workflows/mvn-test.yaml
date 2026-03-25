@@ -30,7 +30,8 @@ jobs:
 
       - name: Run Maven Tests
         run: |
-          mvn clean test
+          # Run tests with the 'ci' profile
+          mvn clean verify -Pci
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v6
