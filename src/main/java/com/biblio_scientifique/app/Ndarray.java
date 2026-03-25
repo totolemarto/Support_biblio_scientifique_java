@@ -83,7 +83,10 @@ public class Ndarray{
     }
 
     public void insert(float value, int dimension, int row){
-        data.get(row).add(value);
+        while (data.size() <= dimension){
+            data.add(new ArrayList<Float>());
+        }
+        data.get(dimension).add(value);
     }
     
     // • zeros() : Cr´eation d’un ndarray rempli de z´eros
@@ -95,7 +98,7 @@ public class Ndarray{
     public static Ndarray array(float[] values){
         Ndarray result = new Ndarray(1);
         for (float value : values){
-            result.insert(value, 0, 1);
+            result.insert(value, 0, 0);
         }
         return result;
     }

@@ -79,6 +79,7 @@ class NdarrayTest {
         for (int i = 0; i < my_array.get_values(0, 0).size(); i++){
             assertEquals(parameters[i], my_array.get_values(0, 0).get(i));
         }
+        assertEquals(3, my_array.get_values(0, 0).size());
     }
 }
 
