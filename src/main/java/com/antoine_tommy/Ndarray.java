@@ -1,41 +1,48 @@
 package com.antoine_tommy;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+
 public class Ndarray{
 
     int ndim;
-    Dimension shape;
+    OurDim shape;
     int size;
     private  ArrayList<ArrayList<Float>> data;
 
-    public Ndarray(int ndim, Dimension shape, int size) {
+    public Ndarray(int ndim, OurDim shape, int size) {
         this.ndim = ndim;
         this.shape = shape;
         this.size = size;
+        data = new ArrayList<ArrayList<Float>>();
+        for (int i = 0; i < ndim; i++){
+            data.add(new ArrayList<Float>(size));
+        }
     }
 
-    public Ndarray() {
+    Ndarray() {
+        this(0, null, 0);
+    }
+
+    public Ndarray(OurDim dim) {
+        this(dim.getNbRows(), dim, dim.getNbCols());
     }
 
     public Ndarray(int ndim) {
-        this.ndim = ndim;
-        this.data = new ArrayList<>();
-        this.shape = new Dimension(0, 0);
+        this(ndim, new OurDim(ndim, 0), 0); 
     }
 
-    // public static Ndarray arrange(int maxi){
-    //
-    //     Ndarray result = new Ndarray(1);
-    //     for (float i = 0; i < maxi; i++){
-    //         result.appendValue(i, 0);
-    //     }
-    //     return result;
-    // }
+    public static Ndarray arrange(int maxi){
+
+        Ndarray result = new Ndarray(1);
+        for (float i = 0; i < maxi; i++){
+            result.insert(i, 0, (int) i);
+        }
+        return result;
+    }
     //
     //
     // public boolean appendValue(float value, int dimension){
@@ -66,11 +73,11 @@ public class Ndarray{
         this.ndim = ndim;
     }
 
-    public Dimension getShape() {
+    public OurDim getShape() {
         return shape;
     }
 
-    public void setShape(Dimension shape) {
+    public void setShape(OurDim shape) {
         this.shape = shape;
     }
 
@@ -82,23 +89,25 @@ public class Ndarray{
         this.size = size;
     }
 
-    public void insert(float value, int dimension, int row){
-        while (data.size() <= dimension){
-            data.add(new ArrayList<Float>());
+    public void insert(float value, int row, int col){
+        while (data.size() <= row){
+            data.add(new ArrayList<Float>(size));
         }
-        data.get(dimension).add(value);
+        data.get(row).add(col, value);
     }
     
     // • zeros() : Cr´eation d’un ndarray rempli de z´eros
-    public static Ndarray zeros(){
-        return new Ndarray(0);
+    public static Ndarray zeros(OurDim dim){
+        return new Ndarray(dim);
     }
 
     // • array() : Cr´eation `a partir d’un tableau
     public static Ndarray array(float[] values){
-        Ndarray result = new Ndarray(1);
+        Ndarray result = new Ndarray(new OurDim(1, values.length));
+        int i = 0;
         for (float value : values){
-            result.insert(value, 0, 0);
+            result.insert(value, 0, i);
+            i++;
         }
         return result;
     }

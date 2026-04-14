@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,7 +16,7 @@ class NdarrayTest {
 
     @Test
     void createsArrayWithExplicitConstructorValues() {
-        Dimension shape = new Dimension(2, 3);
+        OurDim shape = new OurDim(2, 3);
         Ndarray ndarray = new Ndarray(2, shape, 6);
 
         assertEquals(2, ndarray.getNdim());
@@ -26,11 +25,11 @@ class NdarrayTest {
     }
 
     @Test
-    void createsOneDimensionalArrayWithEmptyShapeAndNoSizeWhenUsingNdimConstructor() {
+    void createsOneOurDimalArrayWithEmptyShapeAndNoSizeWhenUsingNdimConstructor() {
         Ndarray ndarray = new Ndarray(1);
 
         assertEquals(1, ndarray.getNdim());
-        assertEquals(new Dimension(0, 0), ndarray.getShape());
+        assertEquals(new OurDim(1, 0), ndarray.getShape());
         assertEquals(0, ndarray.getSize());
     }
 
@@ -59,17 +58,16 @@ class NdarrayTest {
     @Test
     void toStringContainsDataSectionWhenArrayIsCreatedWithNdimConstructor() {
         Ndarray ndarray = new Ndarray(1);
-
-        assertTrue(ndarray.toString().contains("data=[]"));
+        assertTrue(ndarray.toString().contains("data=[[]]"));
     }
 
     @Test
     void toStringContainsNullDataForConstructorsWithoutDataInitialization() {
         Ndarray defaultArray = new Ndarray();
-        Ndarray explicitArray = new Ndarray(2, new Dimension(1, 2), 2);
+        Ndarray explicitArray = new Ndarray(2, new OurDim(1, 2), 2);
 
-        assertTrue(defaultArray.toString().contains("data=null"));
-        assertTrue(explicitArray.toString().contains("data=null"));
+        assertTrue(defaultArray.toString().contains("data=[]"));
+        assertTrue(explicitArray.toString().contains("data=["));
     }
 
     @Test 
@@ -84,10 +82,10 @@ class NdarrayTest {
 
     @Test
     void zeroConstructor(){
-        Ndarray tmp = Ndarray.zeros();
+        Ndarray tmp = Ndarray.zeros(new OurDim(0,0));
         assertEquals(0, tmp.getNdim());
         assertEquals(0, tmp.getSize());
-        assertEquals(new Dimension(0, 0), tmp.getShape());
+        assertEquals(new OurDim(0, 0), tmp.getShape());
     }
 }
 
