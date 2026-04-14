@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -72,12 +69,12 @@ class NdarrayTest {
 
     @Test 
     void arrayConstructorWithNull() {
-        float parameters[] = {1, 2, 3};
-        Ndarray my_array = Ndarray.array(parameters);
-        for (int i = 0; i < my_array.get_values(0, 0).size(); i++){
-            assertEquals(parameters[i], my_array.get_values(0, 0).get(i));
+        float[] parameters = {1, 2, 3};
+        Ndarray myArray = Ndarray.array(parameters);
+        for (int i = 0; i < myArray.getValues(0, 0).size(); i++){
+            assertEquals(parameters[i], myArray.getValues(0, 0).get(i));
         }
-        assertEquals(3, my_array.get_values(0, 0).size());
+        assertEquals(3, myArray.getValues(0, 0).size());
     }
 
     @Test
