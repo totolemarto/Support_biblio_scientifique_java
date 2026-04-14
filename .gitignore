@@ -3,3 +3,8 @@ target
 .classpath
 .project
 .allure
+.idea
+*.iml
+*.DS_Store
+*.vscode
+*.env
