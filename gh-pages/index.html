@@ -8,8 +8,19 @@
 </head>
 <body>
 <div class="container">
-    <h1>YASCL</h1>
-    <p class="subtitle">Yet Another Scientific Computing Library in Java</p>
+
+    <header>
+        <h1>YASCL</h1>
+        <p class="subtitle">Yet Another Scientific Computing Library in Java</p>
+
+        <div class="version-bar">
+            <label for="version-select">Version</label>
+            <select id="version-select">
+                <option value="">Loading...</option>
+            </select>
+            <span id="version-badge">latest</span>
+        </div>
+    </header>
 
     <div class="metrics">
         <div class="metric">
@@ -39,14 +50,24 @@
     </div>
 
     <div class="grid">
-        <a href="./javadoc/index.html" class="card">
+        <a href="" class="card" id="link-javadoc">
             <h2>Documentation</h2>
             <p>Browse the Javadoc API</p>
         </a>
 
-        <a href="./coverage/index.html" class="card">
+        <a href="" class="card" id="link-tests">
+            <h2>Tests</h2>
+            <p>View Allure test report</p>
+        </a>
+
+        <a href="" class="card" id="link-coverage">
             <h2>Coverage</h2>
             <p>View JaCoCo reports</p>
+        </a>
+
+        <a href="" class="card" id="link-mutation">
+            <h2>Mutation Testing</h2>
+            <p>View PIT reports</p>
         </a>
 
         <a href="https://im2ag-sonar.univ-grenoble-alpes.fr/dashboard?id=projet-m1-devops-yascl" class="card" target="_blank">
@@ -59,6 +80,10 @@
             <p>GitHub repository</p>
         </a>
     </div>
+
+    <footer>
+        YASCL · Projet M1 DevOps · Université Grenoble Alpes
+    </footer>
 </div>
 
 <script src="script.js"></script>

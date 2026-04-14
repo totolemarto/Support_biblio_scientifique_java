@@ -1,4 +1,4 @@
-package com.biblio_scientifique.app;
+package com.antoine_tommy;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,8 +21,8 @@ class AppTest {
         private final List<LogRecord> records = new ArrayList<>();
 
         @Override
-        public void publish(LogRecord record) {
-            records.add(record);
+        public void publish(LogRecord logRecord) {
+            records.add(logRecord);
         }
 
         @Override

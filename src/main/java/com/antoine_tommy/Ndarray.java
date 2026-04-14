@@ -1,7 +1,10 @@
-package com.biblio_scientifique.app;
+package com.antoine_tommy;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class Ndarray{
 
@@ -34,6 +37,7 @@ public class Ndarray{
     //     return result;
     // }
     //
+    //
     // public boolean appendValue(float value, int dimension){
     //     boolean result = true;
     //     if (data.size() < dimension){
@@ -47,7 +51,7 @@ public class Ndarray{
     //     }
     //     return result;
     // }
-    //
+
 
     @Override
     public String toString() {
@@ -77,7 +81,36 @@ public class Ndarray{
     public void setSize(int size) {
         this.size = size;
     }
+
+    public void insert(float value, int dimension, int row){
+        while (data.size() <= dimension){
+            data.add(new ArrayList<Float>());
+        }
+        data.get(dimension).add(value);
+    }
     
+    // • zeros() : Cr´eation d’un ndarray rempli de z´eros
+    public static Ndarray zeros(){
+        return new Ndarray(0);
+    }
+
+    // • array() : Cr´eation `a partir d’un tableau
+    public static Ndarray array(float[] values){
+        Ndarray result = new Ndarray(1);
+        for (float value : values){
+            result.insert(value, 0, 0);
+        }
+        return result;
+    }
+
+    public ArrayList<Float> get_values(int dimension, int row) {
+        return data.get(row);
+    }
+
+    // public Ndarray add(Ndarray other){
+    //     Ndarray result = new Ndarray();
+    //     return result;
+    // }
 
 }
 
@@ -98,8 +131,6 @@ public class Ndarray{
     ndarray.size.
     Fonctions de cr´eation Pour cr´eer vos ndarray, votre biblioth`eque doit fournir les fonctions de
     cr´eation suivantes (d´ecrites ici) :
-    • array() : Cr´eation `a partir d’un tableau
-    • zeros() : Cr´eation d’un ndarray rempli de z´eros
     • arange() : Cr´eation d’un ndarray initialis´e avec une s´equence de nombres.
     Affichage Vous devez fournir un affichage tel que d´ecrit ici.
     Op´erations de base Vous devez supporter des op´erations de bases telles que d´ecrites ici. Vous devrez
