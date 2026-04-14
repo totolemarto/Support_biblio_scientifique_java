@@ -1,6 +1,8 @@
 package com.antoine_tommy;
 
-public class OurDim{
+import java.util.Objects;
+
+public class OurDim {
     int nbRows;
     int nbCols;
 
@@ -24,19 +26,19 @@ public class OurDim{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        OurDim other = (OurDim) obj;
-        if (nbRows != other.nbRows)
-            return false;
-        if (nbCols != other.nbCols)
-            return false;
-        return true;
+        }
+        OurDim ourDim = (OurDim) obj;
+        return getNbRows() == ourDim.getNbRows() && getNbCols() == ourDim.getNbCols();
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNbRows(), getNbCols());
+    }
 }
 
