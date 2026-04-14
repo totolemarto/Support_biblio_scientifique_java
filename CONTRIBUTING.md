@@ -1,66 +1,150 @@
-# Contributing to Support Biblio Scientifique
+# Contributing to YASCL
 
-Thank you for your interest in contributing to Support Biblio Scientifique! We welcome any contributions, including bug fixes, feature enhancements, documentation improvements, and other general improvements.
+## Table of contents
 
-## Getting Started
+- [Workflow git](#workflow-git)
+- [Branches](#branches)
+- [Conventional Commits](#conventional-commits)
+- [Pull Requests](#pull-requests)
+- [Code quality](#code-quality)
+- [Releases](#releases)
 
-1. Fork the branch development repository to your GitHub account. This will create a copy of this repository in your account. You can make changes to this copy without affecting the original repository.
-- For fork this repository, click the **Fork** button in the top right corner of this page or click [here](https://github.com/totolemarto/Support_biblio_scientifique_java/fork).
-- Make sure to uncheck the Copy the `main` branch only. This will copy the development branch and other branches (if any)
+---
 
-2. Clone your forked repository to your local machine.
+## Workflow git
 
-- Use the following command to clone your forked repository to your local machine.
+All significant changes go through a feature branch and a Pull Request validated by the other team member.
 
-   ```bash
-   git clone  https://github.com/<your-github-username>/Support_biblio_scientifique_java.git
-   ```
-  
-**Note :** Replace `<your-github-username>` with your actual GitHub username.
+**Direct pushes to `main` are blocked.**
 
-3. Create a new branch for your changes.
+```
+feature/my-feature
+       │
+       │  Pull Request (reviewed + approved)
+       ▼
+  development          ← integration branch (optional)
+       │
+       │  Pull Request
+       ▼
+     main              ← protected, no direct push
+       │
+       │  GitHub Release (manual merge of release PR)
+       ▼
+   vX.Y.Z tag
+```
 
-- For example, to create a new branch named `your-branch-name`, use the following command.
+---
 
-   ```bash
-   git checkout -b your-branch-name
-   ```
+## Branches
 
-4. Make your changes and commit them with a descriptive commit message.
+| Type          | Naming           | Example                   |
+|---------------|------------------|---------------------------|
+| Feature       | `feature/<name>` | `feature/ndarray-reshape` |
+| Bug fix       | `fix/<name>`     | `fix/addition-overflow`   |
+| Documentation | `docs/<name>`    | `docs/update-readme`      |
+| CI / tooling  | `chore/<name>`   | `chore/add-dependabot`    |
 
-- For example, to commit your changes, use the following command.
+Branch names must be lowercase, with hyphens as separators.
 
-**TODO :** Add Commit message guidelines and link to the commit message guidelines file.
+---
 
-   ```bash
-   git commit -m "feat: add a new feature"
-   ```
+## Conventional Commits
 
-5. Push your changes to your forked repository.
+This project enforces [Conventional Commits](https://www.conventionalcommits.org/). Messages that do not follow the convention will be rejected by CI on PRs targeting `main` or `development`.
 
-- For example, to push your changes to your forked repository, use the following command.
+### Format
 
-   ```bash
-   git push origin your-branch-name
-   ```
+```
+<type>(<optional scope>): <short description>
 
-6. Submit a **pull request** to the development branch repository.
-    - For example, to create a pull request, use the following steps.
-        1. Go to your forked repository.
-        2. Click the **Compare & pull request** button next to your `your-branch-name` branch.
-        3. Add a title and description for your pull request.
-        4. Click **Create pull request** and remember to add the relevant labels.
+<optional body>
 
-**TODO :** Add pull request template guidelines and link to the pull request template file.
+<optional footer>
+```
 
-## Guidelines
+### Allowed types
 
-- Follow the code style of the project.
-- Update the **documentation** if necessary.
-- Add tests if applicable.
-- Make sure all tests pass or fully tested before submitting your changes.
-- Keep your pull request focused and avoid including unrelated changes.
+| Type       | When to use                              | Version bump    |
+|------------|------------------------------------------|-----------------|
+| `feat`     | New feature                              | `minor` (0.x.0) |
+| `fix`      | Bug fix                                  | `patch` (0.0.x) |
+| `perf`     | Performance improvement                  | `patch` (0.0.x) |
+| `refactor` | Refactoring, no behaviour change         | none            |
+| `test`     | Adding or updating tests                 | none            |
+| `docs`     | Documentation only                       | none            |
+| `chore`    | Maintenance, dependencies, configuration | none            |
+| `ci`       | CI/CD changes                            | none            |
+| `build`    | Build system (Maven, etc.)               | none            |
+| `revert`   | Reverts a previous commit                | none            |
 
-## Contact
+A `BREAKING CHANGE:` footer triggers a `major` bump (x.0.0) regardless of type.
 
-If you have any questions, feel free to contact via [GitHub Discussions](https://github.com/totolemarto/Support_biblio_scientifique_java/discussions)
+Adding a `!` after the type (e.g. `feat!:`) also indicates a breaking change.
+
+### Examples
+
+```
+feat(ndarray): add reshape() method
+
+fix(operations): fix integer overflow in element-wise addition
+
+test(ndarray): add edge cases for zeros() with size 0
+
+chore(deps): bump allure-junit5 from 2.29.0 to 2.29.1
+
+feat!: remove deprecated NdArray constructor
+
+BREAKING CHANGE: the NdArray(int) constructor has been removed.
+Use NdArray.zeros(int) instead.
+```
+
+### Rules
+
+- The description must be in lowercase and must not end with a period
+- The scope, if present, must be in lowercase
+- Commit titles should be under 100 characters
+
+---
+
+## Pull Requests
+
+### Before opening a PR
+
+- [ ] Tests pass locally: `mvn clean verify`
+- [ ] Coverage stays above 80%: `mvn verify -Pci` (JaCoCo gate is enforced in CI)
+- [ ] Mutation score stays above 70%: `mvn verify org.pitest:pitest-maven:mutationCoverage -Pci`
+- [ ] Javadoc is up to date for any new or modified public method
+- [ ] Commit messages follow Conventional Commits
+
+### Review rules
+
+- Every PR requires **approval from the other team member** before merging
+- The author must not merge their own PR
+- A PR may be merged once CI is green and the review is approved
+
+---
+
+## Code quality
+
+The following thresholds are enforced in CI and will block a merge if not met:
+
+| Metric         | Threshold | Tool      |
+|----------------|-----------|-----------|
+| Line coverage  | ≥ 80%     | JaCoCo    |
+| Mutation score | ≥ 70%     | PIT       |
+| Quality gate   | pass      | SonarQube |
+
+Reports are published to [GitHub Pages](https://totolemarto.github.io/Support_biblio_scientifique_java/) after each merge to `main`.
+
+---
+
+## Releases
+
+Releases are managed automatically by [`release-please`](https://github.com/googleapis/release-please).
+
+1. After merging one or more `feat:` or `fix:` commits to `main`, `release-please` opens a release PR containing a version bump in `pom.xml` and an updated `CHANGELOG.md`.
+2. Review and merge the release PR when the team is ready to publish.
+3. `release-please` creates the GitHub Release and tag automatically.
+4. The `release-docs` and `mvn-deploy` workflows trigger automatically on the new release.
+
+**Do not create releases or tags manually.**

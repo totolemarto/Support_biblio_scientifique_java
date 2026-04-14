@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "maven",
+  "packages": {
+    ".": {
+      "release-type": "maven",
+      "changelog-path": "CHANGELOG.md",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "draft": false,
+      "prerelease": false,
+      "changelog-sections": [
+        { "type": "feat",     "section": "\uE370 Features"          },
+        { "type": "fix",      "section": "\uEAAF Bug Fixes"         },
+        { "type": "perf",     "section": "\uDB85\uDC0B Performance" },
+        { "type": "refactor", "section": "\uF1B8 Refactoring"       },
+        { "type": "test",     "section": "\uDB82\uDD11 Tests"       },
+        { "type": "docs",     "section": "\uF02D Documentation"     },
+        { "type": "chore",    "section": "Maintenance",              "hidden": true },
+        { "type": "ci",       "section": "CI/CD",                    "hidden": true }
+      ]
+    }
+  }
+}
