@@ -234,48 +234,53 @@ class NdarrayTest {
         assertEquals(-1, arrayString.getItemSizeInBytes());
     }
 
-    @Test
-    void testAddOnINT(){
-        Ndarray arrayInt1 = new Ndarray(new Shape(1, 2), Dtype.INT);
-        Ndarray arrayInt2 = new Ndarray(new Shape(1, 2), Dtype.INT);
-        arrayInt1.set(2, 0, 0);
-        arrayInt1.set(3, 0, 1);
-        arrayInt2.set(2, 0, 0);
-        arrayInt2.set(3, 0, 1);
-        assertEquals(arrayInt1.add(arrayInt2), new Ndarray(new Object[]{4, 6}, new Shape(1, 2), Dtype.INT));
+    @Test 
+    void testOperationAllTypesNumerical(){
+        for (Dtype type : Dtype.values()){
+            if (type.equals(Dtype.STRING) || type.equals(Dtype.BOOLEAN)){
+                continue;
+            }
+            Ndarray arrayInt1 = new Ndarray(new Shape(1, 2), type);
+            Ndarray arrayInt2 = new Ndarray(new Shape(1, 2), type);
+            arrayInt1.set(2, 0, 0);
+            arrayInt1.set(3, 0, 1);
+            arrayInt2.set(2, 0, 0);
+            arrayInt2.set(3, 0, 1);
+            assertEquals(arrayInt1.add(arrayInt2), new Ndarray(new Object[]{4, 6}, new Shape(1, 2), type));
 
-        assertEquals(arrayInt1.subtract(arrayInt2), new Ndarray(new Object[]{0, 0}, new Shape(1, 2), Dtype.INT));
-        assertEquals(arrayInt1.multiply(arrayInt2), new Ndarray(new Object[]{4, 9}, new Shape(1, 2), Dtype.INT));
-        assertEquals(arrayInt1.divide(arrayInt2), new Ndarray(new Object[]{1, 1}, new Shape(1, 2), Dtype.INT));
-        
-        arrayInt1.addInPlace(arrayInt2);
-        assertEquals(arrayInt1, new Ndarray(new Object[]{4, 6}, new Shape(1, 2), Dtype.INT));
-        arrayInt1 = new Ndarray(new Shape(1, 2), Dtype.INT);
-        arrayInt1.set(2, 0, 0);
-        arrayInt1.set(3, 0, 1);
-        arrayInt1.subtractInPlace(arrayInt2);
-        assertEquals(arrayInt1, new Ndarray(new Object[]{0, 0}, new Shape(1, 2), Dtype.INT));
+            assertEquals(arrayInt1.subtract(arrayInt2), new Ndarray(new Object[]{0, 0}, new Shape(1, 2), type));
+            assertEquals(arrayInt1.multiply(arrayInt2), new Ndarray(new Object[]{4, 9}, new Shape(1, 2), type));
+            assertEquals(arrayInt1.divide(arrayInt2), new Ndarray(new Object[]{1, 1}, new Shape(1, 2), type));
 
-        arrayInt1 = new Ndarray(new Shape(1, 2), Dtype.INT);
-        arrayInt1.set(2, 0, 0);
-        arrayInt1.set(3, 0, 1);
-        arrayInt1.multiplyInPlace(arrayInt2);
-        assertEquals(arrayInt1, new Ndarray(new Object[]{4, 9}, new Shape(1, 2), Dtype.INT));
+            arrayInt1.addInPlace(arrayInt2);
+            assertEquals(arrayInt1, new Ndarray(new Object[]{4, 6}, new Shape(1, 2), type));
+            arrayInt1 = new Ndarray(new Shape(1, 2), type);
+            arrayInt1.set(2, 0, 0);
+            arrayInt1.set(3, 0, 1);
+            arrayInt1.subtractInPlace(arrayInt2);
+            assertEquals(arrayInt1, new Ndarray(new Object[]{0, 0}, new Shape(1, 2), type));
 
-        arrayInt1 = new Ndarray(new Shape(1, 2), Dtype.INT);
-        arrayInt1.set(2, 0, 0);
-        arrayInt1.set(3, 0, 1);
-        arrayInt1.divideInPlace(arrayInt2);
-        assertEquals(arrayInt1, new Ndarray(new Object[]{1, 1}, new Shape(1, 2), Dtype.INT));
+            arrayInt1 = new Ndarray(new Shape(1, 2), type);
+            arrayInt1.set(2, 0, 0);
+            arrayInt1.set(3, 0, 1);
+            arrayInt1.multiplyInPlace(arrayInt2);
+            assertEquals(arrayInt1, new Ndarray(new Object[]{4, 9}, new Shape(1, 2), type));
 
-        final Ndarray arrayInt3 = new Ndarray(new Shape(1, 2), Dtype.INT);
-        assertThrows(IllegalArgumentException.class, () -> arrayInt3.addInPlace(null));
+            arrayInt1 = new Ndarray(new Shape(1, 2), type);
+            arrayInt1.set(2, 0, 0);
+            arrayInt1.set(3, 0, 1);
+            arrayInt1.divideInPlace(arrayInt2);
+            assertEquals(arrayInt1, new Ndarray(new Object[]{1, 1}, new Shape(1, 2), type));
 
-        final Ndarray arrayInt4 = new Ndarray(new Shape(3, 2), Dtype.INT);
-        assertThrows(IllegalArgumentException.class, () -> arrayInt3.addInPlace(arrayInt4));
+            final Ndarray arrayInt3 = new Ndarray(new Shape(1, 2), type);
+            assertThrows(IllegalArgumentException.class, () -> arrayInt3.addInPlace(null));
 
-        final Ndarray arrayInt5 = new Ndarray(new Shape(1, 2), Dtype.BOOLEAN);
-        assertThrows(IllegalArgumentException.class, () -> arrayInt3.addInPlace(arrayInt5));
+            final Ndarray arrayInt4 = new Ndarray(new Shape(3, 2), type);
+            assertThrows(IllegalArgumentException.class, () -> arrayInt3.addInPlace(arrayInt4));
+
+            final Ndarray arrayInt5 = new Ndarray(new Shape(1, 2), Dtype.BOOLEAN);
+            assertThrows(IllegalArgumentException.class, () -> arrayInt3.addInPlace(arrayInt5));
+        }
     }
 
     @Test
@@ -292,4 +297,3 @@ class NdarrayTest {
     }
 
 }
-
