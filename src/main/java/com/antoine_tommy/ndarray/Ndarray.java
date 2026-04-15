@@ -249,6 +249,16 @@ public class Ndarray {
     }
 
     /**
+     * Convenience method to reshape using varargs for dimensions.
+     *
+     * @param newShape target shape dimensions
+     * @return reshaped array copy
+     */
+    public Ndarray reshape(int... newShape) {
+        return reshape(new Shape(newShape));
+    }
+
+    /**
      * Returns a new array converted to another dtype.
      *
      * @param targetDtype dtype to convert to
@@ -265,12 +275,46 @@ public class Ndarray {
 
     /**
      * Print the array in Numpy-like format.
+     * @todo: Handle [   0    1    2 ... 9997 9998 9999] style for large arrays
+     * @todo: Handle pretty-printing with proper indentation for multi-dimensional arrays
      *
      * @return a string representation of the array
      */
     public String toNumpyString() {
-        // TODO
-        return "";
+        StringBuilder sb = new StringBuilder();
+        toNumpyStringHelper(sb, 0, new int[shape.getDimensions().length]);
+
+        int bracketLevel = 0;
+        for (int i = 0; i < sb.length(); i++) {
+            char c = sb.charAt(i);
+            if (c == ']') {
+                bracketLevel++;
+            } else if (c == '[') {
+                if (bracketLevel > 0) {
+                    sb.insert(i, "\n".repeat(bracketLevel));
+                    i += bracketLevel; // Skip the newly inserted newlines
+                    bracketLevel = 0;
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private void toNumpyStringHelper(StringBuilder sb, int dim, int[] indices) {
+        if (dim == shape.getDimensions().length) {
+            sb.append(get(indices)).append(' ');
+            return;
+        }
+        sb.append('[');
+        for (int i = 0; i < shape.getDimensions()[dim]; i++) {
+            indices[dim] = i;
+            toNumpyStringHelper(sb, dim + 1, indices);
+        }
+        sb.append(']');
+        if (dim == 0) {
+            sb.append('\n');
+        }
     }
 
     private int flatIndex(int... indices) {
