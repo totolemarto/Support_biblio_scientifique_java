@@ -41,6 +41,7 @@ jobs:
   quality:
     name: SonarQube Analysis
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
 
     steps:
       - uses: actions/checkout@v5
