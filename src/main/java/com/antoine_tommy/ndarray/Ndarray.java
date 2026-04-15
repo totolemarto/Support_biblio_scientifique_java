@@ -1,6 +1,7 @@
 package com.antoine_tommy.ndarray;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -64,6 +65,99 @@ public class Ndarray {
         for (int i = 0; i < source.length; i++) {
             this.data[i] = convertValue(source[i], dtype);
         }
+    }
+
+    /**
+     * Convenience factory method to create an array from a List.
+     *
+     * @param data flat row-major data as a List
+     * @param shape target shape
+     * @param dtype target dtype
+     * @return new Ndarray instance
+     */
+    public static Ndarray ndarray(List<Object> data, Shape shape, Dtype dtype) {
+        return new Ndarray(data.toArray(), shape, dtype);
+    }
+
+    /**
+     * Convenience factory method to create a 1D array from a List.
+     *
+     * @param data flat row-major data as a List
+     * @param shape target shape
+     * @return new Ndarray instance
+     */
+    public static Ndarray ndarray(List<Object> data, Shape shape) {
+        return new Ndarray(data.toArray(), shape, Dtype.DOUBLE);
+    }
+
+    /**
+     * Convenience factory method to create a 1D array from a List with default DOUBLE dtype.
+     *
+     * @param data flat row-major data as a List
+     * @return new Ndarray instance
+     */
+    public static Ndarray ndarray(List<Object> data) {
+        return new Ndarray(data.toArray(), new Shape(data.size()), Dtype.DOUBLE);
+    }
+
+    /**
+     * Convenience factory method to create an array filled with zeros.
+     *
+     * @param shape target shape
+     * @param dtype target dtype
+     * @return new Ndarray instance filled with zeros
+     */
+    public static Ndarray zeros(Shape shape, Dtype dtype) {
+        return new Ndarray(shape, dtype);
+    }
+
+    /**
+     * Convenience factory method to create an array filled with zeros with default DOUBLE dtype.
+     *
+     * @param shape target shape
+     * @return new Ndarray instance filled with zeros
+     */
+    public static Ndarray zeros(Shape shape) {
+        return new Ndarray(shape, Dtype.DOUBLE);
+    }
+
+    /**
+     * Convenience factory method to create a 1D array with values from start (inclusive) to end (exclusive) with a given step.
+     *
+     * @param start starting value (inclusive)
+     * @param end ending value (exclusive)
+     * @param step step size
+     * @return new 1D Ndarray instance with the specified range of values
+     */
+    public static Ndarray arrange(int start, int end, int step) {
+        if (step == 0) {
+            throw new IllegalArgumentException("Step cannot be zero.");
+        }
+        int size = (int) Math.ceil((end - start) / (double) step);
+        Object[] data = new Object[size];
+        for (int i = 0; i < size; i++) {
+            data[i] = start + i * step;
+        }
+        return new Ndarray(data, new Shape(size), Dtype.INT);
+    }
+
+    /** Convenience factory method to create a 1D array with values from 0 (inclusive) to end (exclusive) with a given step.
+     *
+     * @param end ending value (exclusive)
+     * @param step step size
+     * @return new 1D Ndarray instance with the specified range of values
+     */
+    public static Ndarray arrange(int end, int step) {
+        return arrange(0, end, step);
+    }
+
+    /** Convenience factory method to create a 1D array with values from 0 (inclusive) to end (exclusive) with a step of 1.
+     *
+     * @param end ending value (exclusive)
+     * @return new 1D Ndarray instance with the specified range of values
+     */
+    public static Ndarray arrange(int end) {
+        return arrange(0, end, 1);
     }
 
     /**
