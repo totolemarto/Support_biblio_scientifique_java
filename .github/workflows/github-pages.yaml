@@ -32,7 +32,7 @@ jobs:
       - name: Build documentation
         run: |
           mvn clean
-          mvn verify
+          mvn verify org.pitest:pitest-maven:mutationCoverage
           mvn javadoc:javadoc
 
       # TODO: Improve extraction
@@ -57,6 +57,7 @@ jobs:
           cp -r gh-pages/* public/
           cp -r target/reports/apidocs public/javadoc
           cp -r target/site/jacoco public/coverage
+          cp -r target/pit-reports public/mutation
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

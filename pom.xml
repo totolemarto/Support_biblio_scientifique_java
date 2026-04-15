@@ -103,7 +103,7 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>3.2.0</version>
                     <configuration>
-                        <mainClass>com.biblio_scientifique.app.App</mainClass>
+                        <mainClass>com.antoine_tommy.App</mainClass>
                         <arguments>
                             <argument>argument1</argument>
                         </arguments>
@@ -130,6 +130,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.23.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.3</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -165,6 +177,14 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <configuration>
+                            <mutationThreshold>70</mutationThreshold>
+                            <coverageThreshold>70</coverageThreshold>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
