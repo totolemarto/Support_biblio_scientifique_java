@@ -2,6 +2,7 @@ target
 .settings
 .classpath
 .project
+.allure
 .idea
 *.iml
 *.DS_Store
