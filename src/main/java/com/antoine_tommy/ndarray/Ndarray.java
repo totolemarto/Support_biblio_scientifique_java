@@ -274,6 +274,102 @@ public class Ndarray {
     }
 
     /**
+     * Returns a new array resulting from element-wise addition with another array.
+     *
+     * @param other the array to add
+     * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+     */
+    public Ndarray add(Ndarray other) {
+        Ndarray result = new Ndarray(shape, dtype);
+        for (int i = 0; i < size; i++) {
+            result.data[i] = Dtype.operator(dtype, Operator.ADD, this.data[i], other.data[i]);
+        }
+        return result;
+    }
+
+    /**
+     * Performs in-place element-wise addition with another array.
+     *
+     * @param other the array to add
+     * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+     */
+    public void addInPlace(Ndarray other) {
+        operator(other, Operator.ADD);
+    }
+
+    /**
+     * Returns a new array resulting from element-wise subtraction with another array.
+     *
+     * @param other the array to subtract
+     * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+     */
+    public Ndarray subtract(Ndarray other) {
+        Ndarray result = new Ndarray(shape, dtype);
+        for (int i = 0; i < size; i++) {
+            result.data[i] = Dtype.operator(dtype, Operator.MINUS, this.data[i], other.data[i]);
+        }
+        return result;
+    }
+
+    /**
+    * Performs in-place element-wise subtraction with another array.
+    *
+    * @param other the array to subtract
+    * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+    */
+    public void subtractInPlace(Ndarray other) {
+        operator(other, Operator.MINUS);
+    }
+
+    /**
+     * Returns a new array resulting from element-wise multiplication with another array.
+     *
+     * @param other the array to multiply
+     * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+     */
+    public Ndarray multiply(Ndarray other) {
+        Ndarray result = new Ndarray(shape, dtype);
+        for (int i = 0; i < size; i++) {
+            result.data[i] = Dtype.operator(dtype, Operator.MULTIPLY, this.data[i], other.data[i]);
+        }
+        return result;
+    }
+
+    /**
+     * Performs in-place element-wise multiplication with another array.
+     *
+     * @param other the array to multiply
+     * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+     */
+    public void multiplyInPlace(Ndarray other) {
+        operator(other, Operator.MULTIPLY);
+    }
+
+    /**
+     * Returns a new array resulting from element-wise division with another array.
+     *
+     * @param other the array to divide
+     * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+     */
+    public Ndarray divide(Ndarray other) {
+        Ndarray result = new Ndarray(shape, dtype);
+        for (int i = 0; i < size; i++) {
+            result.data[i] = Dtype.operator(dtype, Operator.DIVIDE, this.data[i], other.data[i]);
+        }
+        return result;
+    }
+
+    /**
+     * Performs in-place element-wise division with another array.
+     *
+     * @param other the array to divide
+     * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
+     */
+    public void divideInPlace(Ndarray other) {
+        operator(other, Operator.DIVIDE);
+    }
+
+    /**
      * Print the array in Numpy-like format.
      * @todo: Handle [   0    1    2 ... 9997 9998 9999] style for large arrays
      * @todo: Handle pretty-printing with proper indentation for multi-dimensional arrays
@@ -433,6 +529,22 @@ public class Ndarray {
             throw new IllegalArgumentException("String value must be 'true' or 'false'.");
         }
         throw new IllegalArgumentException("Unsupported conversion to boolean.");
+    }
+
+    private void operator(Ndarray other, Operator operator) {
+        if (other == null) {
+            throw new IllegalArgumentException("Other array cannot be null.");
+        }
+        if (!shape.equals(other.shape)) {
+            throw new IllegalArgumentException("Shape mismatch: " + shape + " vs " + other.shape);
+        }
+        if (dtype != other.dtype) {
+            throw new IllegalArgumentException("Dtype mismatch: " + dtype + " vs " + other.dtype);
+        }
+
+        for (int i = 0; i < size; i++) {
+            data[i] = Dtype.operator(dtype, operator, data[i], other.data[i]);
+        }
     }
 
     @Override
