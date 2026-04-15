@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+<!-- yascl-injected -->
+<style>
+:root {
+    --bg:          #0f172a;
+    --surface:     #1e293b;
+    --surface-alt: #334155;
+    --border:      #475569;
+    --text:        #e2e8f0;
+    --muted:       #94a3b8;
+    --accent:      #38bdf8;
+    --accent-dim:  #7dd3fc;
+    --success:     #4ade80;
+    --success-bg:  #14532d;
+    --warning:     #fb923c;
+    --warning-bg:  #7c2d12;
+    --danger:      #f87171;
+    --danger-bg:   #7f1d1d;
+    --neutral-bg:  #1c1917;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 8px 16px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+a {
+    color: var(--accent) !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: var(--accent-dim) !important;
+    text-decoration: underline !important;
+}
+
+#header, .header, header,
+#footer, .footer, footer,
+#breadcrumb, .breadcrumb {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 10px 16px !important;
+    margin-bottom: 16px !important;
+    color: var(--text) !important;
+}
+
+table {
+    background: var(--surface) !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+thead tr, tr.header {
+    background: var(--surface-alt) !important;
+}
+
+th {
+    background: var(--surface-alt) !important;
+    color: var(--accent) !important;
+    border: 1px solid var(--border) !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em !important;
+}
+
+td {
+    border: 1px solid var(--border) !important;
+    padding: 7px 12px !important;
+    color: var(--text) !important;
+    background: transparent !important;
+}
+
+tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02) !important;
+}
+
+tr:hover td {
+    background: var(--surface-alt) !important;
+}
+
+.ctr1, .ctr2 {
+    color: var(--muted) !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+.pc {
+    color: var(--accent) !important;
+    font-weight: bold !important;
+}
+
+.bar {
+    border-radius: 3px !important;
+    overflow: hidden !important;
+}
+
+.greenbar, td.green {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+}
+
+.redbar, td.red {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+}
+
+pre.source {
+    background: #0d1117 !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    overflow-x: auto !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+
+span.fc { background: #14532d !important; }   /* fully covered  */
+span.pc { background: #713f12 !important; }   /* partly covered */
+span.nc { background: #7f1d1d !important; }   /* not covered    */
+
+.KILLED, td.KILLED, span.KILLED {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.SURVIVED, td.SURVIVED, span.SURVIVED {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.NO_COVERAGE, td.NO_COVERAGE, span.NO_COVERAGE {
+    background: var(--neutral-bg) !important;
+    color: var(--muted) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.TIMED_OUT, .RUN_ERROR {
+    background: #312e81 !important;
+    color: #a5b4fc !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.coverage_bar {
+    background: var(--surface-alt) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    height: 8px !important;
+}
+
+.coverage_bar .covered {
+    background: var(--success) !important;
+}
+
+.coverage_bar .uncovered {
+    background: var(--danger) !important;
+}
+
+.mutation_summary {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 16px !important;
+}
+
+pre, code {
+    background: #0d1117 !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    font-family: "JetBrains Mono", "Fira Code", monospace !important;
+    font-size: 13px !important;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+            <th>Test Strength</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+ <td>100% <div class="coverage_bar"><div class="coverage_complete width-100"></div><div class="coverage_legend">32/32</div></div></td>
+            <td>100% <div class="coverage_bar"><div class="coverage_complete width-100"></div><div class="coverage_legend">10/10</div></div></td>
+            <td>100% <div class="coverage_bar"><div class="coverage_complete width-100"></div><div class="coverage_legend">10/10</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Package</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+            <th>Test Strength</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./com.antoine_tommy/index.html">com.antoine_tommy</a></td>
+            <td>1</td>
+ <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete width-100"></div><div class="coverage_legend">32/32</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete width-100"></div><div class="coverage_legend">10/10</div></div></td>
+            <td><div class="coverage_percentage">100% </div><div class="coverage_bar"><div class="coverage_complete width-100"></div><div class="coverage_legend">10/10</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+
+<hr/>
+
+<ul>
+</ul>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.23.0
+
+<br/>
+<br/>
+
+ Enhanced functionality available at <a href='https://www.arcmutate.com/'>arcmutate.com</a>
+<script>
+(function () {
+    var parts = window.location.pathname.split('/').filter(Boolean);
+    if (parts.length < 2) return;
+    var repoRoot = '/' + parts[0] + '/';
+    var currentVersion = parts[1];
+    if (!currentVersion || currentVersion === 'dev') return;
+
+    fetch(repoRoot + 'versions.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (currentVersion === data.latest) return;
+
+            var banner = document.createElement('div');
+            banner.style.cssText = [
+                'position:fixed', 'top:0', 'left:0', 'right:0', 'z-index:9999',
+                'background:#7c2d12', 'color:#fed7aa',
+                'padding:10px 20px', 'text-align:center',
+                'font-family:system-ui,sans-serif', 'font-size:0.9rem',
+                'box-shadow:0 2px 8px rgba(0,0,0,0.5)'
+            ].join(';');
+
+            var latestUrl = repoRoot + data.latest + '/';
+            banner.innerHTML =
+                'Outdated version : <strong>' + currentVersion + '</strong> - ' +
+                '<a href="' + latestUrl + '" style="color:#fdba74;font-weight:bold;">' +
+                'Upgrade to the latest version (' + data.latest + ')</a>';
+
+            document.body.prepend(banner);
+            document.body.style.marginTop = '44px';
+        })
+        .catch(function () {});
+})();
+</script>
+</body>
+</html>
