@@ -67,9 +67,9 @@ class NdimTest {
     void equalsReturnsFalseForNullDifferentClassAndDifferentValue() {
         Ndim ndim = new Ndim(2);
 
-        assertNotEquals(null, ndim);
-        assertNotEquals("2", ndim);
-        assertNotEquals(new Ndim(3), ndim);
+        assertNotEquals(ndim, null);
+        assertNotEquals(ndim, "2");
+        assertNotEquals(ndim, new Ndim(3));
     }
 
     @Test

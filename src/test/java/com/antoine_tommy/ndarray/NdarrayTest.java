@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NdarrayTest {
 
+    private static final String INT = null;
+
     @Test
     void createsArrayWithDefaultDoubleTypeAndZeroValues() {
         Ndarray array = new Ndarray(new Shape(2, 2));
@@ -107,9 +109,129 @@ class NdarrayTest {
         Ndarray third = new Ndarray(new Object[]{1.0, 3.0}, new Shape(2), Dtype.DOUBLE);
 
         assertEquals(first, second);
+        assertEquals(first, first);
+        assertNotEquals(first, new Object());
         assertEquals(first.hashCode(), second.hashCode());
         assertNotEquals(first, third);
         assertTrue(first.toString().contains("Ndarray{"));
+    }
+
+    @Test
+    void bigDimCreateOverflow(){
+        assertThrows(IllegalArgumentException.class, () -> new Ndarray(new Shape((int) Math.pow(2, 31), (int) Math.pow(2, 31)), Dtype.INT));
+    }
+
+    @Test
+    void testConstructDifferentTypeFloat() {
+        Ndarray arrayFloat = new Ndarray(new Shape(2, 2), Dtype.FLOAT);
+
+        arrayFloat.set(1F, 1, 1); 
+        assertEquals(arrayFloat.get(1, 1), 1F);
+
+        // Weird cases
+        arrayFloat.set(true, 1, 1); 
+        arrayFloat.set(false, 1, 0); 
+        assertEquals(arrayFloat.get(1, 1), 1.0F);
+        assertEquals(arrayFloat.get(1, 0), 0.0F);
+
+        arrayFloat.set("42", 1, 1); 
+        assertEquals(arrayFloat.get(1, 1), 42F);
+
+        assertThrows(IllegalArgumentException.class, () -> arrayFloat.set(new Object(), 1, 1)); 
+
+        assertThrows(IllegalArgumentException.class, () -> arrayFloat.set("HEY", 1, 1)); 
+        assertEquals(arrayFloat.get(1, 1), 42F);
+
+    }
+
+    @Test
+    void testConstructDifferentTypeInt() {
+        Ndarray arrayInt = new Ndarray(new Shape(2, 2), Dtype.INT);
+
+        arrayInt.set(1, 1, 1); 
+        assertEquals(arrayInt.get(1, 1), 1);
+
+        // Weird cases
+        arrayInt.set(true, 1, 1); 
+        arrayInt.set(false, 1, 0); 
+        assertEquals(arrayInt.get(1, 1), 1);
+        assertEquals(arrayInt.get(1, 0), 0);
+
+        arrayInt.set("42", 1, 1); 
+        assertEquals(arrayInt.get(1, 1), 42);
+
+        assertThrows(IllegalArgumentException.class, () -> arrayInt.set(new Object(), 1, 1)); 
+
+        assertThrows(IllegalArgumentException.class, () -> arrayInt.set("HEY", 1, 1)); 
+        assertEquals(arrayInt.get(1, 1), 42);
+
+    }
+
+    @Test
+    void testConstructDifferentTypeDouble() {
+        Ndarray arrayDouble = new Ndarray(new Shape(2, 2), Dtype.DOUBLE);
+
+        arrayDouble.set(1F, 1, 1); 
+        assertEquals(arrayDouble.get(1, 1), 1d);
+
+        // Weird cases
+        arrayDouble.set(true, 1, 1); 
+        arrayDouble.set(false, 1, 0); 
+        assertEquals(arrayDouble.get(1, 1), 1.0d);
+        assertEquals(arrayDouble.get(1, 0), 0.0d);
+
+        arrayDouble.set("42", 1, 1); 
+        assertEquals(arrayDouble.get(1, 1), 42d);
+
+        assertThrows(IllegalArgumentException.class, () -> arrayDouble.set(new Object(), 1, 1)); 
+
+        assertThrows(IllegalArgumentException.class, () -> arrayDouble.set("HEY", 1, 1)); 
+        assertEquals(arrayDouble.get(1, 1), 42d);
+
+    }
+
+    @Test
+    void testConstructDifferentTypeString() {
+        Ndarray arrayString = new Ndarray(new Shape(2, 2), Dtype.STRING);
+        arrayString.set("HEY", 1, 1); 
+        assertEquals(arrayString.get(1, 1), "HEY");
+    }
+
+
+    @Test
+    void testConstructDifferentTypeBool() {
+        Ndarray arrayBool = new Ndarray(new Shape(2, 2), Dtype.BOOLEAN);
+        arrayBool.set(true, 1, 1); 
+        assertEquals(arrayBool.get(1, 1), true);
+        arrayBool.set(false, 1, 1); 
+        assertEquals(arrayBool.get(1, 1), false);
+
+        arrayBool.set(1, 1, 1); 
+        assertEquals(arrayBool.get(1, 1), true);
+        arrayBool.set(0, 1, 1); 
+        assertEquals(arrayBool.get(1, 1), false);
+
+        arrayBool.set("true", 1, 1); 
+        assertEquals(arrayBool.get(1, 1), true);
+        arrayBool.set("false", 1, 1); 
+
+        assertThrows(IllegalArgumentException.class, () -> arrayBool.set("HEY", 1, 1)); 
+        assertThrows(IllegalArgumentException.class, () -> arrayBool.set(new Object(), 1, 1)); 
+
+    }
+
+    @Test
+    void getSizeInBytesReturnsExpectedValueForEachSupportedType() {
+        Ndarray arrayInt= new Ndarray(new Shape(2, 2), Dtype.INT);
+        assertEquals(Integer.BYTES, arrayInt.getItemSizeInBytes());
+        Ndarray arrayFloat = new Ndarray(new Shape(2, 2), Dtype.FLOAT);
+        assertEquals(Float.BYTES, arrayFloat.getItemSizeInBytes());
+        Ndarray arrayDouble = new Ndarray(new Shape(2, 2), Dtype.DOUBLE);
+        assertEquals(Double.BYTES, arrayDouble.getItemSizeInBytes());
+        Ndarray arrayBool = new Ndarray(new Shape(2, 2), Dtype.BOOLEAN);
+        assertEquals(1, arrayBool.getItemSizeInBytes());
+        Ndarray arrayString= new Ndarray(new Shape(2, 2), Dtype.STRING);
+        assertEquals(-1, arrayString.getItemSizeInBytes());
     }
 }
 
