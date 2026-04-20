@@ -46,4 +46,13 @@ class DtypeTest {
     void fromStringThrowsNullPointerExceptionWhenInputIsNull() {
         assertThrows(NullPointerException.class, () -> Dtype.fromString(null));
     }
+
+    @Test
+    void getClassWithAllTypes() {
+        assertEquals(Integer.class, Dtype.INT.getJavaClass());
+        assertEquals(Float.class, Dtype.FLOAT.getJavaClass());
+        assertEquals(String.class, Dtype.STRING.getJavaClass());
+        assertEquals(Double.class, Dtype.DOUBLE.getJavaClass());
+        assertEquals(Boolean.class, Dtype.BOOLEAN.getJavaClass());
+    }
 }

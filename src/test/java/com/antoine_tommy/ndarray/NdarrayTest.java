@@ -296,4 +296,25 @@ class NdarrayTest {
 
     }
 
+
+    @Test
+    public void testOperationString(){
+        Ndarray arrayString1 = new Ndarray(new Shape(1, 2), Dtype.STRING);
+        Ndarray arrayString2 = new Ndarray(new Shape(1, 2), Dtype.STRING);
+        arrayString1.set("a", 0, 0);
+        arrayString1.set("b", 0, 1);
+        arrayString2.set("b", 0, 0);
+        arrayString2.set("a", 0, 1);
+        assertEquals(arrayString1.add(arrayString2), new Ndarray(new Object[]{"ab", "ba"}, new Shape(1, 2), Dtype.STRING));
+        assertThrows(IllegalArgumentException.class, () -> arrayString1.divide(arrayString2));
+        assertThrows(IllegalArgumentException.class, () -> arrayString1.subtract(arrayString2));
+        assertThrows(IllegalArgumentException.class, () -> arrayString1.multiply(arrayString2));
+        assertThrows(IllegalArgumentException.class, () -> arrayString1.subtractInPlace(arrayString2));
+        assertThrows(IllegalArgumentException.class, () -> arrayString1.multiplyInPlace(arrayString2));
+        assertThrows(IllegalArgumentException.class, () -> arrayString1.divideInPlace(arrayString2));
+        assertNotEquals(arrayString1, new Ndarray(new Object[]{"ab", "ba"}, new Shape(1, 2), Dtype.STRING));
+        arrayString1.addInPlace(arrayString2);
+        assertEquals(arrayString1, new Ndarray(new Object[]{"ab", "ba"}, new Shape(1, 2), Dtype.STRING));
+    }
+
 }
