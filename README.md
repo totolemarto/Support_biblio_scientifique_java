@@ -40,6 +40,14 @@ The source code of the project is available on [GitHub](https://github.com/totol
 
 The link to add the dependency with Jitpack [Jitpack](https://jitpack.io/#totolemarto/Support_biblio_scientifique_java/)
 
+To try it with a demo in a docker you can run 
+
+```bash
+docker run totoleharicot1/yascl
+```
+
+It will fetch image from [Dockerhub](https://hub.docker.com/repository/docker/totoleharicot1/yascl/general)
+
 ## Dependencies
 
 For the moment, the project does not have any external dependencies. However, it may use some libraries in the future.
