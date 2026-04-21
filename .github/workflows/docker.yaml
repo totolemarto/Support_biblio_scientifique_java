@@ -1,0 +1,32 @@
+name: Build & Docker
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Build Maven
+        run: mvn clean package
+
+      - name: Build Docker image
+        run: docker build -t yascl .
+
+      - name: Login DockerHub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Push image
+        run: |
+          docker tag yascl username/yascl:latest
+          docker push username/yascl:latest
