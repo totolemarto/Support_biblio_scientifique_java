@@ -59,6 +59,17 @@
             <version>2.33.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- SLF4J for logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.17</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -105,17 +116,6 @@
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.6.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <configuration>
-                        <mainClass>com.antoine_tommy.App</mainClass>
-                        <arguments>
-                            <argument>argument1</argument>
-                        </arguments>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

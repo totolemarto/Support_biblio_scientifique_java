@@ -37,9 +37,9 @@ async function loadVersionSwitcher() {
             select.appendChild(opt);
         });
 
-        const pathParts    = window.location.pathname.split('/').filter(Boolean);
-        const versionInUrl = data.versions.find(v => pathParts.includes(v));
-        const active       = versionInUrl ?? 'dev';
+        const pathParts= new Set(globalThis.location.pathname.split('/').filter(Boolean));
+        const versionInUrl = data.versions.find(v => pathParts.has(v));
+        const active= versionInUrl ?? 'dev';
 
         select.value = active;
         updateLinks(active);
@@ -55,10 +55,9 @@ async function loadVersionSwitcher() {
             badge.style.display = (chosen === data.latest) ? 'inline' : 'none';
 
             const currentSection = detectCurrentSection();
-            const target = currentSection
+            globalThis.location.href = currentSection
                 ? `./${chosen}/${currentSection}`
                 : `./${chosen}/`;
-            window.location.href = target;
         });
 
     } catch {
@@ -78,10 +77,15 @@ function updateLinks(version) {
 }
 
 function detectCurrentSection() {
-    const path = window.location.pathname;
+    const path = globalThis.location.pathname;
     return Object.values(SECTIONS).map(s => s.split('/')[0])
         .find(section => path.includes(`/${section}/`)) ?? '';
 }
 
-loadMetrics();
-loadVersionSwitcher();
+try {
+    await loadMetrics();
+    await loadVersionSwitcher();
+} catch (error) {
+    console.error(error);
+    exit(1);
+}
