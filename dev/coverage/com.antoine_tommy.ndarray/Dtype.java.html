@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Dtype.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script><!-- yascl-injected -->
+<style>
+:root {
+    --bg:          #0f172a;
+    --surface:     #1e293b;
+    --surface-alt: #334155;
+    --border:      #475569;
+    --text:        #e2e8f0;
+    --muted:       #94a3b8;
+    --accent:      #38bdf8;
+    --accent-dim:  #7dd3fc;
+    --success:     #4ade80;
+    --success-bg:  #14532d;
+    --warning:     #fb923c;
+    --warning-bg:  #7c2d12;
+    --danger:      #f87171;
+    --danger-bg:   #7f1d1d;
+    --neutral-bg:  #1c1917;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 8px 16px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+a {
+    color: var(--accent) !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: var(--accent-dim) !important;
+    text-decoration: underline !important;
+}
+
+#header, .header, header,
+#footer, .footer, footer,
+#breadcrumb, .breadcrumb {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 10px 16px !important;
+    margin-bottom: 16px !important;
+    color: var(--text) !important;
+}
+
+table {
+    background: var(--surface) !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+thead tr, tr.header {
+    background: var(--surface-alt) !important;
+}
+
+th {
+    background: var(--surface-alt) !important;
+    color: var(--accent) !important;
+    border: 1px solid var(--border) !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em;
+}
+
+td {
+    border: 1px solid var(--border) !important;
+    padding: 7px 12px !important;
+    color: var(--text) !important;
+    background: transparent !important;
+}
+
+tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02) !important;
+}
+
+tr:hover td {
+    background: var(--surface-alt) !important;
+}
+
+.ctr1, .ctr2 {
+    color: var(--muted) !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+.pc {
+    color: var(--accent) !important;
+    font-weight: bold !important;
+}
+
+.bar {
+    border-radius: 3px !important;
+    overflow: hidden !important;
+}
+
+.greenbar, td.green {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+}
+
+.redbar, td.red {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+}
+
+pre.source {
+    background: #0d1117 !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    overflow-x: auto !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+
+span.fc { background: #14532d !important; }   /* fully covered  */
+span.pc { background: #713f12 !important; }   /* partly covered */
+span.nc { background: #7f1d1d !important; }   /* not covered    */
+
+.KILLED, td.KILLED, span.KILLED {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.SURVIVED, td.SURVIVED, span.SURVIVED {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.NO_COVERAGE, td.NO_COVERAGE, span.NO_COVERAGE {
+    background: var(--neutral-bg) !important;
+    color: var(--muted) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.TIMED_OUT, .RUN_ERROR {
+    background: #312e81 !important;
+    color: #a5b4fc !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.coverage_bar {
+    background: var(--surface-alt) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    height: 8px !important;
+}
+
+.coverage_bar .covered {
+    background: var(--success) !important;
+}
+
+.coverage_bar .uncovered {
+    background: var(--danger) !important;
+}
+
+.mutation_summary {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 16px !important;
+}
+
+pre, code {
+    background: #0d1117 !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    font-family: "JetBrains Mono", "Fira Code", monospace !important;
+    font-size: 13px !important;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+</style>
+</head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">yascl</a> &gt; <a href="index.source.html" class="el_package">com.antoine_tommy.ndarray</a> &gt; <span class="el_source">Dtype.java</span></div><h1>Dtype.java</h1><pre class="source lang-java linenums">package com.antoine_tommy.ndarray;
+
+/**
+ * This enum represents the data type of the elements in an array.
+ * It can be used to specify the type of data that an array can hold, such as integers, floats, or doubles.
+ * The Dtype enum can be extended to include more data types as needed.
+ */
+<span class="fc" id="L8">public enum Dtype {</span>
+    /** Integer type */
+<span class="fc" id="L10">    INT,</span>
+
+    /** Floating point (32-bit) */
+<span class="fc" id="L13">    FLOAT,</span>
+
+    /** Double precision floating point (64-bit) */
+<span class="fc" id="L16">    DOUBLE,</span>
+
+    /** Boolean type (true/false) */
+<span class="fc" id="L19">    BOOLEAN,</span>
+
+    /** String type */
+<span class="fc" id="L22">    STRING;</span>
+
+    /**
+     * Returns the size in bytes of the data type.
+     *
+     * @return the size in bytes of the data type
+     */
+    public int getSizeInBytes() {
+<span class="fc bfc" id="L30" title="All 5 branches covered.">        return switch (this) {</span>
+<span class="fc" id="L31">            case INT -&gt; Integer.BYTES;</span>
+<span class="fc" id="L32">            case FLOAT -&gt; Float.BYTES;</span>
+<span class="fc" id="L33">            case DOUBLE -&gt; Double.BYTES;</span>
+<span class="fc" id="L34">            case BOOLEAN -&gt; 1; // Size of boolean is typically 1 byte</span>
+<span class="fc" id="L35">            case STRING -&gt; -1; // Size of string is variable, so we return -1 to indicate that it is not fixed</span>
+        };
+    }
+
+    /**
+     * Returns a string representation of the data type.
+     *
+     * @return a string representation of the data type
+     */
+    @Override
+    public String toString() {
+<span class="fc bfc" id="L46" title="All 5 branches covered.">        return switch (this) {</span>
+<span class="fc" id="L47">            case INT -&gt; &quot;int&quot;;</span>
+<span class="fc" id="L48">            case FLOAT -&gt; &quot;float&quot;;</span>
+<span class="fc" id="L49">            case DOUBLE -&gt; &quot;double&quot;;</span>
+<span class="fc" id="L50">            case BOOLEAN -&gt; &quot;boolean&quot;;</span>
+<span class="fc" id="L51">            case STRING -&gt; &quot;string&quot;;</span>
+        };
+    }
+
+    /**
+     * Returns the corresponding Java class for the data type.
+     *
+     * @return the corresponding Java class for the data type
+     */
+    public Class&lt;?&gt; getJavaClass() {
+<span class="fc bfc" id="L61" title="All 5 branches covered.">        return switch (this) {</span>
+<span class="fc" id="L62">            case INT -&gt; Integer.class;</span>
+<span class="fc" id="L63">            case FLOAT -&gt; Float.class;</span>
+<span class="fc" id="L64">            case DOUBLE -&gt; Double.class;</span>
+<span class="fc" id="L65">            case BOOLEAN -&gt; Boolean.class;</span>
+<span class="fc" id="L66">            case STRING -&gt; String.class;</span>
+        };
+    }
+
+    /**
+     * Parses a string to return the corresponding Dtype enum value.
+     *
+     * @param type the string representation of the data type
+     * @return the corresponding Dtype enum value
+     * @throws IllegalArgumentException if the string does not match any Dtype
+     */
+    public static Dtype fromString(String type) {
+<span class="fc bfc" id="L78" title="All 6 branches covered.">        return switch (type.toLowerCase()) {</span>
+<span class="fc" id="L79">            case &quot;int&quot; -&gt; INT;</span>
+<span class="fc" id="L80">            case &quot;float&quot; -&gt; FLOAT;</span>
+<span class="fc" id="L81">            case &quot;double&quot; -&gt; DOUBLE;</span>
+<span class="fc" id="L82">            case &quot;boolean&quot; -&gt; BOOLEAN;</span>
+<span class="fc" id="L83">            case &quot;string&quot; -&gt; STRING;</span>
+<span class="fc" id="L84">            default -&gt; throw new IllegalArgumentException(&quot;Unknown data type: &quot; + type);</span>
+        };
+    }
+
+    /**
+     * Perform an operation on two data. Data must be of type dtype
+     *
+     * @param dtype  The type of the data
+     * @param operator the operation to perfom on the two value
+     * @param a the first operator
+     * @param b the second operator
+     * @throws IllegalArgumentException if the operation is not permitted on the given dtype
+     */
+    public static Object operator(Dtype dtype, Operator operator, Object a, Object b) {
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (dtype == Dtype.INT) {</span>
+<span class="fc" id="L99">            int intA = (int) a;</span>
+<span class="fc" id="L100">            int intB = (int) b;</span>
+<span class="fc bfc" id="L101" title="All 4 branches covered.">            return switch (operator) {</span>
+<span class="fc" id="L102">                case ADD -&gt; intA + intB;</span>
+<span class="fc" id="L103">                case MINUS -&gt; intA - intB;</span>
+<span class="fc" id="L104">                case MULTIPLY -&gt; intA * intB;</span>
+<span class="fc" id="L105">                case DIVIDE -&gt; intA / intB;</span>
+            };
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        } else if (dtype == Dtype.FLOAT) {</span>
+<span class="fc" id="L108">            float floatA = (float) a;</span>
+<span class="fc" id="L109">            float floatB = (float) b;</span>
+<span class="fc bfc" id="L110" title="All 4 branches covered.">            return switch (operator) {</span>
+<span class="fc" id="L111">                case ADD -&gt; floatA + floatB;</span>
+<span class="fc" id="L112">                case MINUS -&gt; floatA - floatB;</span>
+<span class="fc" id="L113">                case MULTIPLY -&gt; floatA * floatB;</span>
+<span class="fc" id="L114">                case DIVIDE -&gt; floatA / floatB;</span>
+            };
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        } else if (dtype == Dtype.DOUBLE) {</span>
+<span class="fc" id="L117">            double doubleA = (double) a;</span>
+<span class="fc" id="L118">            double doubleB = (double) b;</span>
+<span class="fc bfc" id="L119" title="All 4 branches covered.">            return switch (operator) {</span>
+<span class="fc" id="L120">                case ADD -&gt; doubleA + doubleB;</span>
+<span class="fc" id="L121">                case MINUS -&gt; doubleA - doubleB;</span>
+<span class="fc" id="L122">                case MULTIPLY -&gt; doubleA * doubleB;</span>
+<span class="fc" id="L123">                case DIVIDE -&gt; doubleA / doubleB;</span>
+            };
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        } else if (dtype == Dtype.STRING) {</span>
+<span class="fc" id="L126">            String stringA = (String) a;</span>
+<span class="fc" id="L127">            String stringB = (String) b;</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">            return switch (operator) {</span>
+<span class="fc" id="L129">                case ADD -&gt; stringA + stringB;</span>
+<span class="fc" id="L130">                default -&gt; throw new IllegalArgumentException(&quot;Unsupported operator for string data type: &quot; + operator);</span>
+            };
+        } else {
+<span class="nc" id="L133">            throw new IllegalArgumentException(&quot;Unsupported data type for operator: &quot; + dtype);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

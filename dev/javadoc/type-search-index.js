@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.antoine_tommy","l":"App"},{"p":"com.antoine_tommy","l":"Ndarray"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.antoine_tommy.ndarray","l":"Dtype"},{"p":"com.antoine_tommy.ndarray","l":"Ndarray"},{"p":"com.antoine_tommy.ndarray","l":"Ndim"},{"p":"com.antoine_tommy.ndarray","l":"Operator"},{"p":"com.antoine_tommy.ndarray","l":"Shape"}];updateSearchResults();
