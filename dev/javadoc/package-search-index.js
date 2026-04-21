@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.antoine_tommy.ndarray"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.antoine_tommy"},{"l":"com.antoine_tommy.ndarray"}];updateSearchResults();
