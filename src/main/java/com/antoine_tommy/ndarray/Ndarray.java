@@ -277,6 +277,7 @@ public class Ndarray {
      * Returns a new array resulting from element-wise addition with another array.
      *
      * @param other the array to add
+     * @return  the result of the addition with other
      * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
      */
     public Ndarray add(Ndarray other) {
@@ -301,6 +302,7 @@ public class Ndarray {
      * Returns a new array resulting from element-wise subtraction with another array.
      *
      * @param other the array to subtract
+     * @return  the result of the substraction with other
      * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
      */
     public Ndarray subtract(Ndarray other) {
@@ -325,6 +327,7 @@ public class Ndarray {
      * Returns a new array resulting from element-wise multiplication with another array.
      *
      * @param other the array to multiply
+     * @return  the result of the multiplication with other
      * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
      */
     public Ndarray multiply(Ndarray other) {
@@ -349,6 +352,7 @@ public class Ndarray {
      * Returns a new array resulting from element-wise division with another array.
      *
      * @param other the array to divide
+     * @return  the result of the division by other
      * @throws IllegalArgumentException if the shapes or dtypes of the arrays do not match
      */
     public Ndarray divide(Ndarray other) {
@@ -371,8 +375,8 @@ public class Ndarray {
 
     /**
      * Print the array in Numpy-like format.
-     * @todo: Handle [   0    1    2 ... 9997 9998 9999] style for large arrays
-     * @todo: Handle pretty-printing with proper indentation for multi-dimensional arrays
+     * TODO: Handle [   0    1    2 ... 9997 9998 9999] style for large arrays
+     * TODO: Handle pretty-printing with proper indentation for multi-dimensional arrays
      *
      * @return a string representation of the array
      */

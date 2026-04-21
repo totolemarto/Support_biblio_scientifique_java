@@ -6,10 +6,19 @@ package com.antoine_tommy.ndarray;
  * The Dtype enum can be extended to include more data types as needed.
  */
 public enum Dtype {
+    /** Integer type */
     INT,
+
+    /** Floating point (32-bit) */
     FLOAT,
+
+    /** Double precision floating point (64-bit) */
     DOUBLE,
+
+    /** Boolean type (true/false) */
     BOOLEAN,
+
+    /** String type */
     STRING;
 
     /**
@@ -76,6 +85,15 @@ public enum Dtype {
         };
     }
 
+    /**
+     * Perform an operation on two data. Data must be of type dtype
+     *
+     * @param dtype  The type of the data
+     * @param operator the operation to perfom on the two value
+     * @param a the first operator
+     * @param b the second operator
+     * @throws IllegalArgumentException if the operation is not permitted on the given dtype
+     */
     public static Object operator(Dtype dtype, Operator operator, Object a, Object b) {
         if (dtype == Dtype.INT) {
             int intA = (int) a;
