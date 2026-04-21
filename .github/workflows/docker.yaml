@@ -28,5 +28,5 @@ jobs:
 
       - name: Push image
         run: |
-          docker tag yascl username/yascl:latest
-          docker push username/yascl:latest
+          docker tag yascl ${{ secrets.DOCKERHUB_USERNAME }}/yascl:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/yascl:latest
