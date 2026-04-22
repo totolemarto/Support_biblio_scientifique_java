@@ -281,7 +281,7 @@ public class Ndarray {
      * @return new Ndarray instance
      */
     public static Ndarray ndarray(List&lt;Object&gt; data, Shape shape, Dtype dtype) {
-<span class="nc" id="L79">        return new Ndarray(data.toArray(), shape, dtype);</span>
+<span class="fc" id="L79">        return new Ndarray(data.toArray(), shape, dtype);</span>
     }
 
     /**
@@ -292,7 +292,7 @@ public class Ndarray {
      * @return new Ndarray instance
      */
     public static Ndarray ndarray(List&lt;Object&gt; data, Shape shape) {
-<span class="nc" id="L90">        return new Ndarray(data.toArray(), shape, Dtype.DOUBLE);</span>
+<span class="fc" id="L90">        return new Ndarray(data.toArray(), shape, Dtype.DOUBLE);</span>
     }
 
     /**
@@ -302,7 +302,7 @@ public class Ndarray {
      * @return new Ndarray instance
      */
     public static Ndarray ndarray(List&lt;Object&gt; data) {
-<span class="nc" id="L100">        return new Ndarray(data.toArray(), new Shape(data.size()), Dtype.DOUBLE);</span>
+<span class="fc" id="L100">        return new Ndarray(data.toArray(), new Shape(data.size()), Dtype.DOUBLE);</span>
     }
 
     /**
@@ -313,7 +313,7 @@ public class Ndarray {
      * @return new Ndarray instance filled with zeros
      */
     public static Ndarray zeros(Shape shape, Dtype dtype) {
-<span class="nc" id="L111">        return new Ndarray(shape, dtype);</span>
+<span class="fc" id="L111">        return new Ndarray(shape, dtype);</span>
     }
 
     /**
@@ -323,7 +323,7 @@ public class Ndarray {
      * @return new Ndarray instance filled with zeros
      */
     public static Ndarray zeros(Shape shape) {
-<span class="nc" id="L121">        return new Ndarray(shape, Dtype.DOUBLE);</span>
+<span class="fc" id="L121">        return new Ndarray(shape, Dtype.DOUBLE);</span>
     }
 
     /**
@@ -586,205 +586,204 @@ public class Ndarray {
      * @return a string representation of the array
      */
     public String toNumpyString() {
-<span class="nc" id="L384">        StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L385">        toNumpyStringHelper(sb, 0, new int[shape.getDimensions().length]);</span>
+<span class="fc" id="L384">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L385">        toNumpyStringHelper(sb, 0, new int[shape.getDimensions().length]);</span>
 
-<span class="nc" id="L387">        int bracketLevel = 0;</span>
-<span class="nc bnc" id="L388" title="All 2 branches missed.">        for (int i = 0; i &lt; sb.length(); i++) {</span>
-<span class="nc" id="L389">            char c = sb.charAt(i);</span>
-<span class="nc bnc" id="L390" title="All 2 branches missed.">            if (c == ']') {</span>
-<span class="nc" id="L391">                bracketLevel++;</span>
-<span class="nc bnc" id="L392" title="All 2 branches missed.">            } else if (c == '[') {</span>
-<span class="nc bnc" id="L393" title="All 2 branches missed.">                if (bracketLevel &gt; 0) {</span>
-<span class="nc" id="L394">                    sb.insert(i, &quot;\n&quot;.repeat(bracketLevel));</span>
-<span class="nc" id="L395">                    i += bracketLevel; // Skip the newly inserted newlines</span>
-<span class="nc" id="L396">                    bracketLevel = 0;</span>
-                }
+<span class="fc" id="L387">        int bracketLevel = 0;</span>
+<span class="fc" id="L388">        int i = -1;</span>
+<span class="fc bfc" id="L389" title="All 2 branches covered.">        while (++i &lt; sb.length()) {</span>
+<span class="fc" id="L390">            char c = sb.charAt(i);</span>
+<span class="fc bfc" id="L391" title="All 2 branches covered.">            if (c == ']') {</span>
+<span class="fc" id="L392">                bracketLevel++;</span>
+<span class="fc bfc" id="L393" title="All 4 branches covered.">            } else if (c == '[' &amp;&amp; bracketLevel &gt; 0) {</span>
+<span class="fc" id="L394">                sb.insert(i, &quot;\n&quot;.repeat(bracketLevel));</span>
+<span class="fc" id="L395">                i += bracketLevel; // Skip the newly inserted newlines</span>
+<span class="fc" id="L396">                bracketLevel = 0;</span>
             }
-        }
+<span class="fc" id="L398">        }</span>
 
-<span class="nc" id="L401">        return sb.toString();</span>
+<span class="fc" id="L400">        return sb.toString();</span>
     }
 
     private void toNumpyStringHelper(StringBuilder sb, int dim, int[] indices) {
-<span class="nc bnc" id="L405" title="All 2 branches missed.">        if (dim == shape.getDimensions().length) {</span>
-<span class="nc" id="L406">            sb.append(get(indices)).append(' ');</span>
-<span class="nc" id="L407">            return;</span>
+<span class="fc bfc" id="L404" title="All 2 branches covered.">        if (dim == shape.getDimensions().length) {</span>
+<span class="fc" id="L405">            sb.append(get(indices)).append(' ');</span>
+<span class="fc" id="L406">            return;</span>
         }
-<span class="nc" id="L409">        sb.append('[');</span>
-<span class="nc bnc" id="L410" title="All 2 branches missed.">        for (int i = 0; i &lt; shape.getDimensions()[dim]; i++) {</span>
-<span class="nc" id="L411">            indices[dim] = i;</span>
-<span class="nc" id="L412">            toNumpyStringHelper(sb, dim + 1, indices);</span>
+<span class="fc" id="L408">        sb.append('[');</span>
+<span class="fc bfc" id="L409" title="All 2 branches covered.">        for (int i = 0; i &lt; shape.getDimensions()[dim]; i++) {</span>
+<span class="fc" id="L410">            indices[dim] = i;</span>
+<span class="fc" id="L411">            toNumpyStringHelper(sb, dim + 1, indices);</span>
         }
-<span class="nc" id="L414">        sb.append(']');</span>
-<span class="nc bnc" id="L415" title="All 2 branches missed.">        if (dim == 0) {</span>
-<span class="nc" id="L416">            sb.append('\n');</span>
+<span class="fc" id="L413">        sb.append(']');</span>
+<span class="fc bfc" id="L414" title="All 2 branches covered.">        if (dim == 0) {</span>
+<span class="fc" id="L415">            sb.append('\n');</span>
         }
-<span class="nc" id="L418">    }</span>
+<span class="fc" id="L417">    }</span>
 
     private int flatIndex(int... indices) {
-<span class="fc" id="L421">        int[] dims = shape.getDimensions();</span>
-<span class="pc bpc" id="L422" title="1 of 4 branches missed.">        if (indices == null || indices.length != dims.length) {</span>
-<span class="pc bpc" id="L423" title="1 of 2 branches missed.">            throw new IllegalArgumentException(&quot;Expected &quot; + dims.length + &quot; indices, got &quot; + (indices == null ? 0 : indices.length) + '.');</span>
+<span class="fc" id="L420">        int[] dims = shape.getDimensions();</span>
+<span class="pc bpc" id="L421" title="1 of 4 branches missed.">        if (indices == null || indices.length != dims.length) {</span>
+<span class="pc bpc" id="L422" title="1 of 2 branches missed.">            throw new IllegalArgumentException(&quot;Expected &quot; + dims.length + &quot; indices, got &quot; + (indices == null ? 0 : indices.length) + '.');</span>
         }
 
-<span class="fc" id="L426">        int flatIndex = 0;</span>
-<span class="fc" id="L427">        int stride = 1;</span>
-<span class="fc bfc" id="L428" title="All 2 branches covered.">        for (int i = dims.length - 1; i &gt;= 0; i--) {</span>
-<span class="fc" id="L429">            int index = indices[i];</span>
-<span class="pc bpc" id="L430" title="1 of 4 branches missed.">            if (index &lt; 0 || index &gt;= dims[i]) {</span>
-<span class="fc" id="L431">                throw new IndexOutOfBoundsException(&quot;Index &quot; + index + &quot; is out of bounds for axis &quot; + i + &quot; with size &quot; + dims[i] + '.');</span>
+<span class="fc" id="L425">        int flatIndex = 0;</span>
+<span class="fc" id="L426">        int stride = 1;</span>
+<span class="fc bfc" id="L427" title="All 2 branches covered.">        for (int i = dims.length - 1; i &gt;= 0; i--) {</span>
+<span class="fc" id="L428">            int index = indices[i];</span>
+<span class="pc bpc" id="L429" title="1 of 4 branches missed.">            if (index &lt; 0 || index &gt;= dims[i]) {</span>
+<span class="fc" id="L430">                throw new IndexOutOfBoundsException(&quot;Index &quot; + index + &quot; is out of bounds for axis &quot; + i + &quot; with size &quot; + dims[i] + '.');</span>
             }
-<span class="fc" id="L433">            flatIndex += index * stride;</span>
-<span class="fc" id="L434">            stride *= dims[i];</span>
+<span class="fc" id="L432">            flatIndex += index * stride;</span>
+<span class="fc" id="L433">            stride *= dims[i];</span>
         }
-<span class="fc" id="L436">        return flatIndex;</span>
+<span class="fc" id="L435">        return flatIndex;</span>
     }
 
     private static int computeSize(Shape shape) {
-<span class="fc" id="L440">        long product = 1L;</span>
-<span class="fc bfc" id="L441" title="All 2 branches covered.">        for (int dim : shape.getDimensions()) {</span>
-<span class="fc" id="L442">            product *= dim;</span>
-<span class="fc bfc" id="L443" title="All 2 branches covered.">            if (product &gt; Integer.MAX_VALUE) {</span>
-<span class="fc" id="L444">                throw new IllegalArgumentException(&quot;Shape is too large.&quot;);</span>
+<span class="fc" id="L439">        long product = 1L;</span>
+<span class="fc bfc" id="L440" title="All 2 branches covered.">        for (int dim : shape.getDimensions()) {</span>
+<span class="fc" id="L441">            product *= dim;</span>
+<span class="fc bfc" id="L442" title="All 2 branches covered.">            if (product &gt; Integer.MAX_VALUE) {</span>
+<span class="fc" id="L443">                throw new IllegalArgumentException(&quot;Shape is too large.&quot;);</span>
             }
         }
-<span class="fc" id="L447">        return (int) product;</span>
+<span class="fc" id="L446">        return (int) product;</span>
     }
 
     private static Object defaultValueFor(Dtype dtype) {
-<span class="fc bfc" id="L451" title="All 5 branches covered.">        return switch (dtype) {</span>
-<span class="fc" id="L452">            case INT -&gt; 0;</span>
-<span class="fc" id="L453">            case FLOAT -&gt; 0.0f;</span>
-<span class="fc" id="L454">            case DOUBLE -&gt; 0.0d;</span>
-<span class="fc" id="L455">            case BOOLEAN -&gt; false;</span>
-<span class="fc" id="L456">            case STRING -&gt; &quot;&quot;;</span>
+<span class="fc bfc" id="L450" title="All 5 branches covered.">        return switch (dtype) {</span>
+<span class="fc" id="L451">            case INT -&gt; 0;</span>
+<span class="fc" id="L452">            case FLOAT -&gt; 0.0f;</span>
+<span class="fc" id="L453">            case DOUBLE -&gt; 0.0d;</span>
+<span class="fc" id="L454">            case BOOLEAN -&gt; false;</span>
+<span class="fc" id="L455">            case STRING -&gt; &quot;&quot;;</span>
         };
     }
 
     private static Object convertValue(Object value, Dtype target) {
-<span class="fc" id="L461">        Objects.requireNonNull(value, &quot;value cannot be null&quot;);</span>
+<span class="fc" id="L460">        Objects.requireNonNull(value, &quot;value cannot be null&quot;);</span>
 
         try {
-<span class="fc bfc" id="L464" title="All 5 branches covered.">            return switch (target) {</span>
-<span class="fc" id="L465">                case INT -&gt; toInt(value);</span>
-<span class="fc" id="L466">                case FLOAT -&gt; toFloat(value);</span>
-<span class="fc" id="L467">                case DOUBLE -&gt; toDouble(value);</span>
-<span class="fc" id="L468">                case BOOLEAN -&gt; toBoolean(value);</span>
-<span class="fc" id="L469">                case STRING -&gt; String.valueOf(value);</span>
+<span class="fc bfc" id="L463" title="All 5 branches covered.">            return switch (target) {</span>
+<span class="fc" id="L464">                case INT -&gt; toInt(value);</span>
+<span class="fc" id="L465">                case FLOAT -&gt; toFloat(value);</span>
+<span class="fc" id="L466">                case DOUBLE -&gt; toDouble(value);</span>
+<span class="fc" id="L467">                case BOOLEAN -&gt; toBoolean(value);</span>
+<span class="fc" id="L468">                case STRING -&gt; String.valueOf(value);</span>
             };
-<span class="fc" id="L471">        } catch (RuntimeException exception) {</span>
-<span class="fc" id="L472">            throw new IllegalArgumentException(</span>
-<span class="fc" id="L473">                &quot;Cannot convert value '&quot; + value + &quot;' (&quot; + value.getClass().getSimpleName() + &quot;) to &quot; + target + &quot;.&quot;,</span>
+<span class="fc" id="L470">        } catch (RuntimeException exception) {</span>
+<span class="fc" id="L471">            throw new IllegalArgumentException(</span>
+<span class="fc" id="L472">                &quot;Cannot convert value '&quot; + value + &quot;' (&quot; + value.getClass().getSimpleName() + &quot;) to &quot; + target + &quot;.&quot;,</span>
                 exception
             );
         }
     }
 
     private static Integer toInt(Object value) {
-<span class="fc bfc" id="L480" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
-<span class="fc" id="L481">            return number.intValue();</span>
+<span class="fc bfc" id="L479" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
+<span class="fc" id="L480">            return number.intValue();</span>
         }
-<span class="fc bfc" id="L483" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
-<span class="fc bfc" id="L484" title="All 2 branches covered.">            return bool ? 1 : 0;</span>
+<span class="fc bfc" id="L482" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
+<span class="fc bfc" id="L483" title="All 2 branches covered.">            return bool ? 1 : 0;</span>
         }
-<span class="fc bfc" id="L486" title="All 2 branches covered.">        if (value instanceof String text) {</span>
-<span class="fc" id="L487">            return Integer.parseInt(text);</span>
+<span class="fc bfc" id="L485" title="All 2 branches covered.">        if (value instanceof String text) {</span>
+<span class="fc" id="L486">            return Integer.parseInt(text);</span>
         }
-<span class="fc" id="L489">        throw new IllegalArgumentException(&quot;Unsupported conversion to int.&quot;);</span>
+<span class="fc" id="L488">        throw new IllegalArgumentException(&quot;Unsupported conversion to int.&quot;);</span>
     }
 
     private static Float toFloat(Object value) {
-<span class="fc bfc" id="L493" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
-<span class="fc" id="L494">            return number.floatValue();</span>
+<span class="fc bfc" id="L492" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
+<span class="fc" id="L493">            return number.floatValue();</span>
         }
-<span class="fc bfc" id="L496" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
-<span class="fc bfc" id="L497" title="All 2 branches covered.">            return bool ? 1.0f : 0.0f;</span>
+<span class="fc bfc" id="L495" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
+<span class="fc bfc" id="L496" title="All 2 branches covered.">            return bool ? 1.0f : 0.0f;</span>
         }
-<span class="fc bfc" id="L499" title="All 2 branches covered.">        if (value instanceof String text) {</span>
-<span class="fc" id="L500">            return Float.parseFloat(text);</span>
+<span class="fc bfc" id="L498" title="All 2 branches covered.">        if (value instanceof String text) {</span>
+<span class="fc" id="L499">            return Float.parseFloat(text);</span>
         }
-<span class="fc" id="L502">        throw new IllegalArgumentException(&quot;Unsupported conversion to float.&quot;);</span>
+<span class="fc" id="L501">        throw new IllegalArgumentException(&quot;Unsupported conversion to float.&quot;);</span>
     }
 
     private static Double toDouble(Object value) {
-<span class="fc bfc" id="L506" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
-<span class="fc" id="L507">            return number.doubleValue();</span>
+<span class="fc bfc" id="L505" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
+<span class="fc" id="L506">            return number.doubleValue();</span>
         }
-<span class="fc bfc" id="L509" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
-<span class="fc bfc" id="L510" title="All 2 branches covered.">            return bool ? 1.0d : 0.0d;</span>
+<span class="fc bfc" id="L508" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
+<span class="fc bfc" id="L509" title="All 2 branches covered.">            return bool ? 1.0d : 0.0d;</span>
         }
-<span class="fc bfc" id="L512" title="All 2 branches covered.">        if (value instanceof String text) {</span>
-<span class="fc" id="L513">            return Double.parseDouble(text);</span>
+<span class="fc bfc" id="L511" title="All 2 branches covered.">        if (value instanceof String text) {</span>
+<span class="fc" id="L512">            return Double.parseDouble(text);</span>
         }
-<span class="fc" id="L515">        throw new IllegalArgumentException(&quot;Unsupported conversion to double.&quot;);</span>
+<span class="fc" id="L514">        throw new IllegalArgumentException(&quot;Unsupported conversion to double.&quot;);</span>
     }
 
     private static Boolean toBoolean(Object value) {
-<span class="fc bfc" id="L519" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
-<span class="fc" id="L520">            return bool;</span>
+<span class="fc bfc" id="L518" title="All 2 branches covered.">        if (value instanceof Boolean bool) {</span>
+<span class="fc" id="L519">            return bool;</span>
         }
-<span class="fc bfc" id="L522" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
-<span class="fc bfc" id="L523" title="All 2 branches covered.">            return number.doubleValue() != 0.0d;</span>
+<span class="fc bfc" id="L521" title="All 2 branches covered.">        if (value instanceof Number number) {</span>
+<span class="fc bfc" id="L522" title="All 2 branches covered.">            return number.doubleValue() != 0.0d;</span>
         }
-<span class="fc bfc" id="L525" title="All 2 branches covered.">        if (value instanceof String text) {</span>
-<span class="fc" id="L526">            String normalized = text.trim().toLowerCase(Locale.ROOT);</span>
-<span class="fc bfc" id="L527" title="All 2 branches covered.">            if (&quot;true&quot;.equals(normalized)) {</span>
-<span class="fc" id="L528">                return true;</span>
+<span class="fc bfc" id="L524" title="All 2 branches covered.">        if (value instanceof String text) {</span>
+<span class="fc" id="L525">            String normalized = text.trim().toLowerCase(Locale.ROOT);</span>
+<span class="fc bfc" id="L526" title="All 2 branches covered.">            if (&quot;true&quot;.equals(normalized)) {</span>
+<span class="fc" id="L527">                return true;</span>
             }
-<span class="fc bfc" id="L530" title="All 2 branches covered.">            if (&quot;false&quot;.equals(normalized)) {</span>
-<span class="fc" id="L531">                return false;</span>
+<span class="fc bfc" id="L529" title="All 2 branches covered.">            if (&quot;false&quot;.equals(normalized)) {</span>
+<span class="fc" id="L530">                return false;</span>
             }
-<span class="fc" id="L533">            throw new IllegalArgumentException(&quot;String value must be 'true' or 'false'.&quot;);</span>
+<span class="fc" id="L532">            throw new IllegalArgumentException(&quot;String value must be 'true' or 'false'.&quot;);</span>
         }
-<span class="fc" id="L535">        throw new IllegalArgumentException(&quot;Unsupported conversion to boolean.&quot;);</span>
+<span class="fc" id="L534">        throw new IllegalArgumentException(&quot;Unsupported conversion to boolean.&quot;);</span>
     }
 
     private void operator(Ndarray other, Operator operator) {
-<span class="fc bfc" id="L539" title="All 2 branches covered.">        if (other == null) {</span>
-<span class="fc" id="L540">            throw new IllegalArgumentException(&quot;Other array cannot be null.&quot;);</span>
+<span class="fc bfc" id="L538" title="All 2 branches covered.">        if (other == null) {</span>
+<span class="fc" id="L539">            throw new IllegalArgumentException(&quot;Other array cannot be null.&quot;);</span>
         }
-<span class="fc bfc" id="L542" title="All 2 branches covered.">        if (!shape.equals(other.shape)) {</span>
-<span class="fc" id="L543">            throw new IllegalArgumentException(&quot;Shape mismatch: &quot; + shape + &quot; vs &quot; + other.shape);</span>
+<span class="fc bfc" id="L541" title="All 2 branches covered.">        if (!shape.equals(other.shape)) {</span>
+<span class="fc" id="L542">            throw new IllegalArgumentException(&quot;Shape mismatch: &quot; + shape + &quot; vs &quot; + other.shape);</span>
         }
-<span class="fc bfc" id="L545" title="All 2 branches covered.">        if (dtype != other.dtype) {</span>
-<span class="fc" id="L546">            throw new IllegalArgumentException(&quot;Dtype mismatch: &quot; + dtype + &quot; vs &quot; + other.dtype);</span>
+<span class="fc bfc" id="L544" title="All 2 branches covered.">        if (dtype != other.dtype) {</span>
+<span class="fc" id="L545">            throw new IllegalArgumentException(&quot;Dtype mismatch: &quot; + dtype + &quot; vs &quot; + other.dtype);</span>
         }
 
-<span class="fc bfc" id="L549" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
-<span class="fc" id="L550">            data[i] = Dtype.operator(dtype, operator, data[i], other.data[i]);</span>
+<span class="fc bfc" id="L548" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc" id="L549">            data[i] = Dtype.operator(dtype, operator, data[i], other.data[i]);</span>
         }
-<span class="fc" id="L552">    }</span>
+<span class="fc" id="L551">    }</span>
 
     @Override
     public boolean equals(Object obj) {
-<span class="fc bfc" id="L556" title="All 2 branches covered.">        if (this == obj) {</span>
-<span class="fc" id="L557">            return true;</span>
+<span class="fc bfc" id="L555" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L556">            return true;</span>
         }
-<span class="fc bfc" id="L559" title="All 2 branches covered.">        if (!(obj instanceof Ndarray other)) {</span>
-<span class="fc" id="L560">            return false;</span>
+<span class="fc bfc" id="L558" title="All 2 branches covered.">        if (!(obj instanceof Ndarray other)) {</span>
+<span class="fc" id="L559">            return false;</span>
         }
-<span class="pc bpc" id="L562" title="1 of 2 branches missed.">        return size == other.size</span>
-<span class="pc bpc" id="L563" title="1 of 2 branches missed.">            &amp;&amp; ndim.equals(other.ndim)</span>
-<span class="pc bpc" id="L564" title="2 of 4 branches missed.">            &amp;&amp; shape.equals(other.shape)</span>
+<span class="fc bfc" id="L561" title="All 2 branches covered.">        return size == other.size</span>
+<span class="fc bfc" id="L562" title="All 2 branches covered.">            &amp;&amp; ndim.equals(other.ndim)</span>
+<span class="pc bpc" id="L563" title="2 of 4 branches missed.">            &amp;&amp; shape.equals(other.shape)</span>
             &amp;&amp; dtype == other.dtype
-<span class="fc bfc" id="L566" title="All 2 branches covered.">            &amp;&amp; Arrays.equals(data, other.data);</span>
+<span class="fc bfc" id="L565" title="All 2 branches covered.">            &amp;&amp; Arrays.equals(data, other.data);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="fc" id="L571">        int result = Objects.hash(ndim, shape, dtype, size);</span>
-<span class="fc" id="L572">        result = 31 * result + Arrays.hashCode(data);</span>
-<span class="fc" id="L573">        return result;</span>
+<span class="fc" id="L570">        int result = Objects.hash(ndim, shape, dtype, size);</span>
+<span class="fc" id="L571">        result = 31 * result + Arrays.hashCode(data);</span>
+<span class="fc" id="L572">        return result;</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L578">        return &quot;Ndarray{&quot;</span>
-<span class="fc" id="L579">            + &quot;ndim=&quot; + ndim.getDim()</span>
-<span class="fc" id="L580">            + &quot;, shape=&quot; + Arrays.toString(shape.getDimensions())</span>
+<span class="fc" id="L577">        return &quot;Ndarray{&quot;</span>
+<span class="fc" id="L578">            + &quot;ndim=&quot; + ndim.getDim()</span>
+<span class="fc" id="L579">            + &quot;, shape=&quot; + Arrays.toString(shape.getDimensions())</span>
             + &quot;, dtype=&quot; + dtype
-<span class="fc" id="L582">            + &quot;, data=&quot; + Arrays.toString(data)</span>
+<span class="fc" id="L581">            + &quot;, data=&quot; + Arrays.toString(data)</span>
             + '}';
     }
 }

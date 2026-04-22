@@ -300,42 +300,47 @@ pre, code {
      * @throws IllegalArgumentException if the operation is not permitted on the given dtype
      */
     public static Object operator(Dtype dtype, Operator operator, Object a, Object b) {
-<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (dtype == Dtype.INT) {</span>
-<span class="fc" id="L99">            int intA = (int) a;</span>
-<span class="fc" id="L100">            int intB = (int) b;</span>
-<span class="fc bfc" id="L101" title="All 4 branches covered.">            return switch (operator) {</span>
-<span class="fc" id="L102">                case ADD -&gt; intA + intB;</span>
-<span class="fc" id="L103">                case MINUS -&gt; intA - intB;</span>
-<span class="fc" id="L104">                case MULTIPLY -&gt; intA * intB;</span>
-<span class="fc" id="L105">                case DIVIDE -&gt; intA / intB;</span>
-            };
-<span class="fc bfc" id="L107" title="All 2 branches covered.">        } else if (dtype == Dtype.FLOAT) {</span>
-<span class="fc" id="L108">            float floatA = (float) a;</span>
-<span class="fc" id="L109">            float floatB = (float) b;</span>
-<span class="fc bfc" id="L110" title="All 4 branches covered.">            return switch (operator) {</span>
-<span class="fc" id="L111">                case ADD -&gt; floatA + floatB;</span>
-<span class="fc" id="L112">                case MINUS -&gt; floatA - floatB;</span>
-<span class="fc" id="L113">                case MULTIPLY -&gt; floatA * floatB;</span>
-<span class="fc" id="L114">                case DIVIDE -&gt; floatA / floatB;</span>
-            };
-<span class="fc bfc" id="L116" title="All 2 branches covered.">        } else if (dtype == Dtype.DOUBLE) {</span>
-<span class="fc" id="L117">            double doubleA = (double) a;</span>
-<span class="fc" id="L118">            double doubleB = (double) b;</span>
-<span class="fc bfc" id="L119" title="All 4 branches covered.">            return switch (operator) {</span>
-<span class="fc" id="L120">                case ADD -&gt; doubleA + doubleB;</span>
-<span class="fc" id="L121">                case MINUS -&gt; doubleA - doubleB;</span>
-<span class="fc" id="L122">                case MULTIPLY -&gt; doubleA * doubleB;</span>
-<span class="fc" id="L123">                case DIVIDE -&gt; doubleA / doubleB;</span>
-            };
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        } else if (dtype == Dtype.STRING) {</span>
-<span class="fc" id="L126">            String stringA = (String) a;</span>
-<span class="fc" id="L127">            String stringB = (String) b;</span>
-<span class="fc bfc" id="L128" title="All 2 branches covered.">            return switch (operator) {</span>
-<span class="fc" id="L129">                case ADD -&gt; stringA + stringB;</span>
-<span class="fc" id="L130">                default -&gt; throw new IllegalArgumentException(&quot;Unsupported operator for string data type: &quot; + operator);</span>
-            };
-        } else {
-<span class="nc" id="L133">            throw new IllegalArgumentException(&quot;Unsupported data type for operator: &quot; + dtype);</span>
+<span class="pc bpc" id="L98" title="1 of 5 branches missed.">        switch (dtype) {</span>
+            case INT -&gt; {
+<span class="fc" id="L100">                int intA = (int) a;</span>
+<span class="fc" id="L101">                int intB = (int) b;</span>
+<span class="fc bfc" id="L102" title="All 4 branches covered.">                return switch (operator) {</span>
+<span class="fc" id="L103">                    case ADD -&gt; intA + intB;</span>
+<span class="fc" id="L104">                    case MINUS -&gt; intA - intB;</span>
+<span class="fc" id="L105">                    case MULTIPLY -&gt; intA * intB;</span>
+<span class="fc" id="L106">                    case DIVIDE -&gt; intA / intB;</span>
+                };
+            }
+            case FLOAT -&gt; {
+<span class="fc" id="L110">                float floatA = (float) a;</span>
+<span class="fc" id="L111">                float floatB = (float) b;</span>
+<span class="fc bfc" id="L112" title="All 4 branches covered.">                return switch (operator) {</span>
+<span class="fc" id="L113">                    case ADD -&gt; floatA + floatB;</span>
+<span class="fc" id="L114">                    case MINUS -&gt; floatA - floatB;</span>
+<span class="fc" id="L115">                    case MULTIPLY -&gt; floatA * floatB;</span>
+<span class="fc" id="L116">                    case DIVIDE -&gt; floatA / floatB;</span>
+                };
+            }
+            case DOUBLE -&gt; {
+<span class="fc" id="L120">                double doubleA = (double) a;</span>
+<span class="fc" id="L121">                double doubleB = (double) b;</span>
+<span class="fc bfc" id="L122" title="All 4 branches covered.">                return switch (operator) {</span>
+<span class="fc" id="L123">                    case ADD -&gt; doubleA + doubleB;</span>
+<span class="fc" id="L124">                    case MINUS -&gt; doubleA - doubleB;</span>
+<span class="fc" id="L125">                    case MULTIPLY -&gt; doubleA * doubleB;</span>
+<span class="fc" id="L126">                    case DIVIDE -&gt; doubleA / doubleB;</span>
+                };
+            }
+            case STRING -&gt; {
+<span class="fc" id="L130">                String stringA = (String) a;</span>
+<span class="fc" id="L131">                String stringB = (String) b;</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">                return switch (operator) {</span>
+<span class="fc" id="L133">                    case ADD -&gt; stringA + stringB;</span>
+                    default -&gt;
+<span class="fc" id="L135">                            throw new IllegalArgumentException(&quot;Unsupported operator for string data type: &quot; + operator);</span>
+                };
+            }
+<span class="nc" id="L138">            default -&gt; throw new IllegalArgumentException(&quot;Unsupported data type for operator: &quot; + dtype);</span>
         }
     }
 }
