@@ -53,11 +53,6 @@ async function loadVersionSwitcher() {
             updateLinks(chosen);
 
             badge.style.display = (chosen === data.latest) ? 'inline' : 'none';
-
-            const currentSection = detectCurrentSection();
-            globalThis.location.href = currentSection
-                ? `./${chosen}/${currentSection}`
-                : `./${chosen}/`;
         });
 
     } catch {
