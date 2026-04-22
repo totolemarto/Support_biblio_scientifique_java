@@ -81,17 +81,18 @@ function detectCurrentSection() {
     return Object.values(SECTIONS).map(s => s.split('/')[0])
         .find(section => path.includes(`/${section}/`)) ?? '';
 }
+async function main() {
+    try {
+        await loadMetrics();
+    } catch (error) {
+        console.error(error);
+    }
 
-try {
-    await loadMetrics();
-} catch (error) {
-    console.error(error);
-    exit(1);
+    try {
+        await loadVersionSwitcher();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-try {
-    await loadVersionSwitcher();
-} catch (error) {
-    console.error(error);
-    exit(1);
-}
+main();
