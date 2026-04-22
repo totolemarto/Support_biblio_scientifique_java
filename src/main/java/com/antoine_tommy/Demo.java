@@ -15,12 +15,15 @@ public class Demo {
         Ndarray arrayString2 = new Ndarray(new Object[]{" world"}, new Shape(1, 1), Dtype.STRING);
 
         LOGGER.info("On créer deux NDarray de String dont voici la représentation");
-        LOGGER.info(arrayString1.toNumpyString());
-        LOGGER.info(arrayString2.toNumpyString());
+        String result = arrayString1.toNumpyString();
+        LOGGER.info(result);
+        result = arrayString2.toNumpyString();
+        LOGGER.info(result);
 
         LOGGER.info("Puis voici le résultat de l'addition de ces deux arrays");
+        result = arrayString1.add(arrayString2).toString();
 
-        LOGGER.info(arrayString1.add(arrayString2).toString());
+        LOGGER.info(result);
 
         LOGGER.info("C'était super hein :) ");
     }
