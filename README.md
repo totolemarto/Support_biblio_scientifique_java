@@ -40,7 +40,9 @@ The source code of the project is available on [GitHub](https://github.com/totol
 
 The link to add the dependency with Jitpack [Jitpack](https://jitpack.io/#totolemarto/Support_biblio_scientifique_java/)
 
-To try it with a demo in a docker you can run 
+## Docker images
+
+To try the project with a demo in a docker you can run 
 
 ```bash
 docker run totoleharicot1/yascl
@@ -85,6 +87,24 @@ In order to work collaboratively, we follow this workflow:
 - When a collaborator wants to merge their work into the main branch, CI checks must pass
 - At least one reviewer approval is required before merging
 - Direct pushes to the main branch without review are not allowed
+
+## Feedback
+
+This project highlights the benefits of adopting a DevOps approach, but also its limitations in a small academic context.
+
+    + GitHub Actions improved reliability by automating builds, tests, and documentation deployment.
+
+    + Test and code coverage are really usefull to make grow the application and be sure nothing is broken from earlier.
+
+    + SonarQube provided useful insights into code quality. On a small project like this one, it's easy to maintain a good quality but a lots of warning produces are annoying and have small impact.
+
+    + The Git workflow (branches, pull requests, reviews) improved collaboration and code quality, although it introduced some overhead for a small team like our. 
+
+    + Docker enhances reproducibility and provide a good way to give an executable to everyone.
+
+    + Publishing via GitHub Pages and JitPack improves accessibility, yet the project lacks real user feedback or production usage, which limits validation of its relevance.
+
+Overall, the project demonstrates good DevOps practices and was funny to do.
 
 -----------------
 
