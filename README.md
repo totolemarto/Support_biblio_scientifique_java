@@ -48,7 +48,7 @@ To try the project with a demo in a docker you can run
 docker run totoleharicot1/yascl
 ```
 
-It will fetch image from [Dockerhub](https://hub.docker.com/repository/docker/totoleharicot1/yascl/general)
+It will fetch image from [Dockerhub](https://hub.docker.com/r/totoleharicot1/yascl)
 
 ## Dependencies
 
@@ -78,6 +78,8 @@ Valorisation de votre bibliothéque ✅
 Utiliser SonarQube pour l’analyse statique de code ✅
 
 Livraison continue (Maven) ✅
+
+Créer une image pour la reproductibilité (Docker) ✅
 
 ## Git Workflow
 
