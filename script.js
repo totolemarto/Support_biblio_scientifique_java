@@ -84,6 +84,12 @@ function detectCurrentSection() {
 
 try {
     await loadMetrics();
+} catch (error) {
+    console.error(error);
+    exit(1);
+}
+
+try {
     await loadVersionSwitcher();
 } catch (error) {
     console.error(error);
