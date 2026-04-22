@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Shape</title><script type="text/javascript" src="../jacoco-resources/sort.js"></script><!-- yascl-injected -->
+<style>
+:root {
+    --bg:          #0f172a;
+    --surface:     #1e293b;
+    --surface-alt: #334155;
+    --border:      #475569;
+    --text:        #e2e8f0;
+    --muted:       #94a3b8;
+    --accent:      #38bdf8;
+    --accent-dim:  #7dd3fc;
+    --success:     #4ade80;
+    --success-bg:  #14532d;
+    --warning:     #fb923c;
+    --warning-bg:  #7c2d12;
+    --danger:      #f87171;
+    --danger-bg:   #7f1d1d;
+    --neutral-bg:  #1c1917;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 8px 16px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+a {
+    color: var(--accent) !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: var(--accent-dim) !important;
+    text-decoration: underline !important;
+}
+
+#header, .header, header,
+#footer, .footer, footer,
+#breadcrumb, .breadcrumb {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 10px 16px !important;
+    margin-bottom: 16px !important;
+    color: var(--text) !important;
+}
+
+table {
+    background: var(--surface) !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+thead tr, tr.header {
+    background: var(--surface-alt) !important;
+}
+
+th {
+    background: var(--surface-alt) !important;
+    color: var(--accent) !important;
+    border: 1px solid var(--border) !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em;
+}
+
+td {
+    border: 1px solid var(--border) !important;
+    padding: 7px 12px !important;
+    color: var(--text) !important;
+    background: transparent !important;
+}
+
+tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02) !important;
+}
+
+tr:hover td {
+    background: var(--surface-alt) !important;
+}
+
+.ctr1, .ctr2 {
+    color: var(--muted) !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+.pc {
+    color: var(--accent) !important;
+    font-weight: bold !important;
+}
+
+.bar {
+    border-radius: 3px !important;
+    overflow: hidden !important;
+}
+
+.greenbar, td.green {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+}
+
+.redbar, td.red {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+}
+
+pre.source {
+    background: #0d1117 !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    overflow-x: auto !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+
+span.fc { background: #14532d !important; }   /* fully covered  */
+span.pc { background: #713f12 !important; }   /* partly covered */
+span.nc { background: #7f1d1d !important; }   /* not covered    */
+
+.KILLED, td.KILLED, span.KILLED {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.SURVIVED, td.SURVIVED, span.SURVIVED {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.NO_COVERAGE, td.NO_COVERAGE, span.NO_COVERAGE {
+    background: var(--neutral-bg) !important;
+    color: var(--muted) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.TIMED_OUT, .RUN_ERROR {
+    background: #312e81 !important;
+    color: #a5b4fc !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.coverage_bar {
+    background: var(--surface-alt) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    height: 8px !important;
+}
+
+.coverage_bar .covered {
+    background: var(--success) !important;
+}
+
+.coverage_bar .uncovered {
+    background: var(--danger) !important;
+}
+
+.mutation_summary {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 16px !important;
+}
+
+pre, code {
+    background: #0d1117 !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    font-family: "JetBrains Mono", "Fira Code", monospace !important;
+    font-size: 13px !important;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+</style>
+</head><body onload="initialSort(['breadcrumb'])"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">yascl</a> &gt; <a href="index.html" class="el_package">com.antoine_tommy.ndarray</a> &gt; <span class="el_class">Shape</span></div><h1>Shape</h1><table class="coverage" cellspacing="0" id="coveragetable"><thead><tr><td class="sortable" id="a" onclick="toggleSort(this)">Element</td><td class="down sortable bar" id="b" onclick="toggleSort(this)">Missed Instructions</td><td class="sortable ctr2" id="c" onclick="toggleSort(this)">Cov.</td><td class="sortable bar" id="d" onclick="toggleSort(this)">Missed Branches</td><td class="sortable ctr2" id="e" onclick="toggleSort(this)">Cov.</td><td class="sortable ctr1" id="f" onclick="toggleSort(this)">Missed</td><td class="sortable ctr2" id="g" onclick="toggleSort(this)">Cxty</td><td class="sortable ctr1" id="h" onclick="toggleSort(this)">Missed</td><td class="sortable ctr2" id="i" onclick="toggleSort(this)">Lines</td><td class="sortable ctr1" id="j" onclick="toggleSort(this)">Missed</td><td class="sortable ctr2" id="k" onclick="toggleSort(this)">Methods</td></tr></thead><tfoot><tr><td>Total</td><td class="bar">4 of 146</td><td class="ctr2">97%</td><td class="bar">3 of 24</td><td class="ctr2">87%</td><td class="ctr1">3</td><td class="ctr2">18</td><td class="ctr1">2</td><td class="ctr2">29</td><td class="ctr1">0</td><td class="ctr2">6</td></tr></tfoot><tbody><tr><td id="a0"><a href="Shape.java.html#L65" class="el_method">equals(Object)</a></td><td class="bar" id="b0"><img src="../jacoco-resources/redbar.gif" width="10" height="10" title="4" alt="4"/><img src="../jacoco-resources/greenbar.gif" width="110" height="10" title="44" alt="44"/></td><td class="ctr2" id="c5">91%</td><td class="bar" id="d0"><img src="../jacoco-resources/redbar.gif" width="30" height="10" title="3" alt="3"/><img src="../jacoco-resources/greenbar.gif" width="90" height="10" title="9" alt="9"/></td><td class="ctr2" id="e3">75%</td><td class="ctr1" id="f0">3</td><td class="ctr2" id="g0">7</td><td class="ctr1" id="h0">2</td><td class="ctr2" id="i0">11</td><td class="ctr1" id="j0">0</td><td class="ctr2" id="k0">1</td></tr><tr><td id="a5"><a href="Shape.java.html#L19" class="el_method">Shape(int[])</a></td><td class="bar" id="b1"><img src="../jacoco-resources/greenbar.gif" width="97" height="10" title="39" alt="39"/></td><td class="ctr2" id="c0">100%</td><td class="bar" id="d1"><img src="../jacoco-resources/greenbar.gif" width="60" height="10" title="6" alt="6"/></td><td class="ctr2" id="e0">100%</td><td class="ctr1" id="f1">0</td><td class="ctr2" id="g1">4</td><td class="ctr1" id="h1">0</td><td class="ctr2" id="i1">8</td><td class="ctr1" id="j1">0</td><td class="ctr2" id="k1">1</td></tr><tr><td id="a3"><a href="Shape.java.html#L85" class="el_method">hashCode()</a></td><td class="bar" id="b2"><img src="../jacoco-resources/greenbar.gif" width="70" height="10" title="28" alt="28"/></td><td class="ctr2" id="c1">100%</td><td class="bar" id="d3"><img src="../jacoco-resources/greenbar.gif" width="20" height="10" title="2" alt="2"/></td><td class="ctr2" id="e1">100%</td><td class="ctr1" id="f2">0</td><td class="ctr2" id="g3">2</td><td class="ctr1" id="h2">0</td><td class="ctr2" id="i2">4</td><td class="ctr1" id="j2">0</td><td class="ctr2" id="k2">1</td></tr><tr><td id="a1"><a href="Shape.java.html#L57" class="el_method">getDimension(int)</a></td><td class="bar" id="b3"><img src="../jacoco-resources/greenbar.gif" width="42" height="10" title="17" alt="17"/></td><td class="ctr2" id="c2">100%</td><td class="bar" id="d2"><img src="../jacoco-resources/greenbar.gif" width="40" height="10" title="4" alt="4"/></td><td class="ctr2" id="e2">100%</td><td class="ctr1" id="f3">0</td><td class="ctr2" id="g2">3</td><td class="ctr1" id="h3">0</td><td class="ctr2" id="i3">3</td><td class="ctr1" id="j3">0</td><td class="ctr2" id="k3">1</td></tr><tr><td id="a4"><a href="Shape.java.html#L37" class="el_method">Shape()</a></td><td class="bar" id="b4"><img src="../jacoco-resources/greenbar.gif" width="22" height="10" title="9" alt="9"/></td><td class="ctr2" id="c3">100%</td><td class="bar" id="d4"/><td class="ctr2" id="e4">n/a</td><td class="ctr1" id="f4">0</td><td class="ctr2" id="g4">1</td><td class="ctr1" id="h4">0</td><td class="ctr2" id="i4">2</td><td class="ctr1" id="j4">0</td><td class="ctr2" id="k4">1</td></tr><tr><td id="a2"><a href="Shape.java.html#L46" class="el_method">getDimensions()</a></td><td class="bar" id="b5"><img src="../jacoco-resources/greenbar.gif" width="12" height="10" title="5" alt="5"/></td><td class="ctr2" id="c4">100%</td><td class="bar" id="d5"/><td class="ctr2" id="e5">n/a</td><td class="ctr1" id="f5">0</td><td class="ctr2" id="g5">1</td><td class="ctr1" id="h5">0</td><td class="ctr2" id="i5">1</td><td class="ctr1" id="j5">0</td><td class="ctr2" id="k5">1</td></tr></tbody></table><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div><script>
+(function () {
+    var parts = window.location.pathname.split('/').filter(Boolean);
+    if (parts.length < 2) return;
+    var repoRoot = '/' + parts[0] + '/';
+    var currentVersion = parts[1];
+    if (!currentVersion || currentVersion === 'dev') return;
+
+    fetch(repoRoot + 'versions.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (currentVersion === data.latest) return;
+
+            var banner = document.createElement('div');
+            banner.style.cssText = [
+                'position:fixed', 'top:0', 'left:0', 'right:0', 'z-index:9999',
+                'background:#7c2d12', 'color:#fed7aa',
+                'padding:10px 20px', 'text-align:center',
+                'font-family:system-ui,sans-serif', 'font-size:0.9rem',
+                'box-shadow:0 2px 8px rgba(0,0,0,0.5)'
+            ].join(';');
+
+            var latestUrl = repoRoot + data.latest + '/';
+            banner.innerHTML =
+                'Outdated version : <strong>' + currentVersion + '</strong> - ' +
+                '<a href="' + latestUrl + '" style="color:#fdba74;font-weight:bold;">' +
+                'Upgrade to the latest version (' + data.latest + ')</a>';
+
+            document.body.prepend(banner);
+            document.body.style.marginTop = '44px';
+        })
+        .catch(function () {});
+})();
+</script>
+</body></html>

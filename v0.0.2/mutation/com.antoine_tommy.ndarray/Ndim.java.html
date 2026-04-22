@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+<!-- yascl-injected -->
+<style>
+:root {
+    --bg:          #0f172a;
+    --surface:     #1e293b;
+    --surface-alt: #334155;
+    --border:      #475569;
+    --text:        #e2e8f0;
+    --muted:       #94a3b8;
+    --accent:      #38bdf8;
+    --accent-dim:  #7dd3fc;
+    --success:     #4ade80;
+    --success-bg:  #14532d;
+    --warning:     #fb923c;
+    --warning-bg:  #7c2d12;
+    --danger:      #f87171;
+    --danger-bg:   #7f1d1d;
+    --neutral-bg:  #1c1917;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 8px 16px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+a {
+    color: var(--accent) !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: var(--accent-dim) !important;
+    text-decoration: underline !important;
+}
+
+#header, .header, header,
+#footer, .footer, footer,
+#breadcrumb, .breadcrumb {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 10px 16px !important;
+    margin-bottom: 16px !important;
+    color: var(--text) !important;
+}
+
+table {
+    background: var(--surface) !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+thead tr, tr.header {
+    background: var(--surface-alt) !important;
+}
+
+th {
+    background: var(--surface-alt) !important;
+    color: var(--accent) !important;
+    border: 1px solid var(--border) !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em;
+}
+
+td {
+    border: 1px solid var(--border) !important;
+    padding: 7px 12px !important;
+    color: var(--text) !important;
+    background: transparent !important;
+}
+
+tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02) !important;
+}
+
+tr:hover td {
+    background: var(--surface-alt) !important;
+}
+
+.ctr1, .ctr2 {
+    color: var(--muted) !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+.pc {
+    color: var(--accent) !important;
+    font-weight: bold !important;
+}
+
+.bar {
+    border-radius: 3px !important;
+    overflow: hidden !important;
+}
+
+.greenbar, td.green {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+}
+
+.redbar, td.red {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+}
+
+pre.source {
+    background: #0d1117 !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    overflow-x: auto !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+
+span.fc { background: #14532d !important; }   /* fully covered  */
+span.pc { background: #713f12 !important; }   /* partly covered */
+span.nc { background: #7f1d1d !important; }   /* not covered    */
+
+.KILLED, td.KILLED, span.KILLED {
+    background: var(--success-bg) !important;
+    color: var(--success) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.SURVIVED, td.SURVIVED, span.SURVIVED {
+    background: var(--danger-bg) !important;
+    color: var(--danger) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+    font-weight: 600 !important;
+}
+
+.NO_COVERAGE, td.NO_COVERAGE, span.NO_COVERAGE {
+    background: var(--neutral-bg) !important;
+    color: var(--muted) !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.TIMED_OUT, .RUN_ERROR {
+    background: #312e81 !important;
+    color: #a5b4fc !important;
+    border-radius: 3px !important;
+    padding: 1px 4px !important;
+}
+
+.coverage_bar {
+    background: var(--surface-alt) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    height: 8px !important;
+}
+
+.coverage_bar .covered {
+    background: var(--success) !important;
+}
+
+.coverage_bar .uncovered {
+    background: var(--danger) !important;
+}
+
+.mutation_summary {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 16px !important;
+}
+
+pre, code {
+    background: #0d1117 !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    font-family: "JetBrains Mono", "Fira Code", monospace !important;
+    font-size: 13px !important;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+</style>
+</head>
+<body>
+
+
+<h1>Ndim.java</h1>
+
+<table class="src">
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.antoine_tommy.ndarray;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class represents the number of dimensions of an array.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * It must be a positive integer, and it is used to determine the shape of the array.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class Ndim {</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The number of dimensions of the array. It must be a positive integer. */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int dim;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an Ndim object with the specified number of dimensions.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param dim the number of dimensions, must be a positive integer</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if dim is not a positive integer</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public Ndim(int dim) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_18'/>
+18
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_18'>2</a>
+<span>
+1. &#60;init&#62; : negated conditional &rarr; KILLED<br/>
+2. &#60;init&#62; : changed conditional boundary &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (dim &#60;= 0) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;Number of dimensions must be a positive integer.&#34;);</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.dim = dim;</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an Ndim object with a default number of dimensions (1).</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This constructor is useful when the number of dimensions is not specified.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Ndim() {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(1); // Default to 1 dimension if not specified</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the number of dimensions of the array.</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the number of dimensions</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getDim() {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_38'/>
+38
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_38'>1</a>
+<span>
+1. getDim : replaced int return with 0 for com/antoine_tommy/ndarray/Ndim::getDim &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return dim;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(Object obj) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_43'/>
+43
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_43'>1</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (this == obj) {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_44'/>
+44
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_44'>1</a>
+<span>
+1. equals : replaced boolean return with false for com/antoine_tommy/ndarray/Ndim::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return true;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_46'>2</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+2. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (obj == null || getClass() != obj.getClass()) {</span></pre></td></tr>
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_47'/>
+47
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_47'>1</a>
+<span>
+1. equals : replaced boolean return with true for com/antoine_tommy/ndarray/Ndim::equals &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return false;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Ndim other = (Ndim) obj;</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_50'>2</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+2. equals : replaced boolean return with true for com/antoine_tommy/ndarray/Ndim::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return dim == other.dim;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int hashCode() {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_55'>1</a>
+<span>
+1. hashCode : replaced int return with 0 for com/antoine_tommy/ndarray/Ndim::hashCode &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return Integer.hashCode(dim);</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_60'>1</a>
+<span>
+1. toString : replaced return value with &#34;&#34; for com/antoine_tommy/ndarray/Ndim::toString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return &#34;Ndim{&#34; + &#34;dim=&#34; + dim + &#39;}&#39;;</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6171b73a_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_18'>18</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_18'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:throwsIllegalArgumentExceptionWhenNdimIsNegative()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:throwsIllegalArgumentExceptionWhenNdimIsZero()]</span></span> changed conditional boundary &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDim<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:createsDefaultNdimWithValueOne()]</span></span> replaced int return with 0 for com/antoine_tommy/ndarray/Ndim::getDim &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_43'>43</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_43'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsReturnsFalseForNullDifferentClassAndDifferentValue()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_44'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsAndHashCodeMatchForSameNdim()]</span></span> replaced boolean return with false for com/antoine_tommy/ndarray/Ndim::equals &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsAndHashCodeMatchForSameNdimValue()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsAndHashCodeMatchForSameNdimValue()]</span></span> negated conditional &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_47'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for com/antoine_tommy/ndarray/Ndim::equals &rarr; NO_COVERAGE</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsReturnsFalseForNullDifferentClassAndDifferentValue()]</span></span> negated conditional &rarr; KILLED</span>
+</div> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsReturnsFalseForNullDifferentClassAndDifferentValue()]</span></span> replaced boolean return with true for com/antoine_tommy/ndarray/Ndim::equals &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsAndHashCodeMatchForSameNdim()]</span></span> replaced int return with 0 for com/antoine_tommy/ndarray/Ndim::hashCode &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6171b73a_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6171b73a_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:toStringReturnsReadableRepresentationWithNdimValue()]</span></span> replaced return value with &#34;&#34; for com/antoine_tommy/ndarray/Ndim::toString &rarr; KILLED</span>
+</div> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:createsDefaultNdimWithValueOne()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:createsNdimWithPositiveValue()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:equalsHashCodeAndToStringReflectArrayContent()] (4 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsReturnsFalseForNullDifferentClassAndDifferentValue()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsAndHashCodeMatchForSameNdim()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:equalsAndHashCodeMatchForSameNdimValue()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testAranngeBasic()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:createsArrayWithDefaultDoubleTypeAndZeroValues()] (2 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testOperationString()] (2 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testOperationAllTypesNumerical()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:toStringReturnsReadableRepresentationWithNdimValue()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:throwsIllegalArgumentExceptionWhenNdimIsNegative()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:throwsIllegalArgumentExceptionWhenNdimIsZero()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdimTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdimTest]/[method:hashCodeIsDifferentForDifferentNdimValues()] (2 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:bigDimCreateOverflow()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testConstructDifferentTypeString()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:constructorThrowsWhenDataLengthDoesNotMatchShapeSize()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:createsArrayFromFlatDataAndConvertsValuesToRequestedType()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:reshapeThrowsWhenRequestedShapeHasDifferentSize()] (2 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:getSizeInBytesReturnsExpectedValueForEachSupportedType()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:reshapeReturnsNewArrayWithSameDataAndDifferentShape()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:setThrowsWhenValueCannotBeConvertedToDtype()] (3 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:indexingThrowsForWrongNumberOfIndicesAndOutOfBounds()] (5 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testNumpyString()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testZeroConstructor()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testConstructDifferentTypeInt()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testConstructDifferentTypeFloat()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testArrayConstructor()] (0 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:astypeConvertsValuesAndReturnsNewArrayWithTargetType()] (4 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testConstructDifferentTypeDouble()] (1 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:getAndSetUseRowMajorIndexing()] (4 ms)</li><li>com.antoine_tommy.ndarray.NdarrayTest.[engine:junit-jupiter]/[class:com.antoine_tommy.ndarray.NdarrayTest]/[method:testConstructDifferentTypeBool()] (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.23.1 <a href='https://github.com/sponsors/hcoles'>support</a>
+
+<script>
+(function () {
+    var parts = window.location.pathname.split('/').filter(Boolean);
+    if (parts.length < 2) return;
+    var repoRoot = '/' + parts[0] + '/';
+    var currentVersion = parts[1];
+    if (!currentVersion || currentVersion === 'dev') return;
+
+    fetch(repoRoot + 'versions.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (currentVersion === data.latest) return;
+
+            var banner = document.createElement('div');
+            banner.style.cssText = [
+                'position:fixed', 'top:0', 'left:0', 'right:0', 'z-index:9999',
+                'background:#7c2d12', 'color:#fed7aa',
+                'padding:10px 20px', 'text-align:center',
+                'font-family:system-ui,sans-serif', 'font-size:0.9rem',
+                'box-shadow:0 2px 8px rgba(0,0,0,0.5)'
+            ].join(';');
+
+            var latestUrl = repoRoot + data.latest + '/';
+            banner.innerHTML =
+                'Outdated version : <strong>' + currentVersion + '</strong> - ' +
+                '<a href="' + latestUrl + '" style="color:#fdba74;font-weight:bold;">' +
+                'Upgrade to the latest version (' + data.latest + ')</a>';
+
+            document.body.prepend(banner);
+            document.body.style.marginTop = '44px';
+        })
+        .catch(function () {});
+})();
+</script>
+</body>
+</html>
