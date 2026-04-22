@@ -95,42 +95,47 @@ public enum Dtype {
      * @throws IllegalArgumentException if the operation is not permitted on the given dtype
      */
     public static Object operator(Dtype dtype, Operator operator, Object a, Object b) {
-        if (dtype == Dtype.INT) {
-            int intA = (int) a;
-            int intB = (int) b;
-            return switch (operator) {
-                case ADD -> intA + intB;
-                case MINUS -> intA - intB;
-                case MULTIPLY -> intA * intB;
-                case DIVIDE -> intA / intB;
-            };
-        } else if (dtype == Dtype.FLOAT) {
-            float floatA = (float) a;
-            float floatB = (float) b;
-            return switch (operator) {
-                case ADD -> floatA + floatB;
-                case MINUS -> floatA - floatB;
-                case MULTIPLY -> floatA * floatB;
-                case DIVIDE -> floatA / floatB;
-            };
-        } else if (dtype == Dtype.DOUBLE) {
-            double doubleA = (double) a;
-            double doubleB = (double) b;
-            return switch (operator) {
-                case ADD -> doubleA + doubleB;
-                case MINUS -> doubleA - doubleB;
-                case MULTIPLY -> doubleA * doubleB;
-                case DIVIDE -> doubleA / doubleB;
-            };
-        } else if (dtype == Dtype.STRING) {
-            String stringA = (String) a;
-            String stringB = (String) b;
-            return switch (operator) {
-                case ADD -> stringA + stringB;
-                default -> throw new IllegalArgumentException("Unsupported operator for string data type: " + operator);
-            };
-        } else {
-            throw new IllegalArgumentException("Unsupported data type for operator: " + dtype);
+        switch (dtype) {
+            case INT -> {
+                int intA = (int) a;
+                int intB = (int) b;
+                return switch (operator) {
+                    case ADD -> intA + intB;
+                    case MINUS -> intA - intB;
+                    case MULTIPLY -> intA * intB;
+                    case DIVIDE -> intA / intB;
+                };
+            }
+            case FLOAT -> {
+                float floatA = (float) a;
+                float floatB = (float) b;
+                return switch (operator) {
+                    case ADD -> floatA + floatB;
+                    case MINUS -> floatA - floatB;
+                    case MULTIPLY -> floatA * floatB;
+                    case DIVIDE -> floatA / floatB;
+                };
+            }
+            case DOUBLE -> {
+                double doubleA = (double) a;
+                double doubleB = (double) b;
+                return switch (operator) {
+                    case ADD -> doubleA + doubleB;
+                    case MINUS -> doubleA - doubleB;
+                    case MULTIPLY -> doubleA * doubleB;
+                    case DIVIDE -> doubleA / doubleB;
+                };
+            }
+            case STRING -> {
+                String stringA = (String) a;
+                String stringB = (String) b;
+                return switch (operator) {
+                    case ADD -> stringA + stringB;
+                    default ->
+                            throw new IllegalArgumentException("Unsupported operator for string data type: " + operator);
+                };
+            }
+            default -> throw new IllegalArgumentException("Unsupported data type for operator: " + dtype);
         }
     }
 }

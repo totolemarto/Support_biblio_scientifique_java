@@ -385,16 +385,15 @@ public class Ndarray {
         toNumpyStringHelper(sb, 0, new int[shape.getDimensions().length]);
 
         int bracketLevel = 0;
-        for (int i = 0; i < sb.length(); i++) {
+        int i = -1;
+        while (++i < sb.length()) {
             char c = sb.charAt(i);
             if (c == ']') {
                 bracketLevel++;
-            } else if (c == '[') {
-                if (bracketLevel > 0) {
-                    sb.insert(i, "\n".repeat(bracketLevel));
-                    i += bracketLevel; // Skip the newly inserted newlines
-                    bracketLevel = 0;
-                }
+            } else if (c == '[' && bracketLevel > 0) {
+                sb.insert(i, "\n".repeat(bracketLevel));
+                i += bracketLevel; // Skip the newly inserted newlines
+                bracketLevel = 0;
             }
         }
 

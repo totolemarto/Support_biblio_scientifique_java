@@ -8,10 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+
 class NdarrayTest {
-
-    private static final String INT = null;
-
     @Test
     void createsArrayWithDefaultDoubleTypeAndZeroValues() {
         Ndarray array = new Ndarray(new Shape(2, 2));
@@ -32,9 +31,10 @@ class NdarrayTest {
 
     @Test
     void constructorThrowsWhenDataLengthDoesNotMatchShapeSize() {
+        Shape shape = new Shape(2, 2);
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Ndarray(new Object[]{1, 2, 3}, new Shape(2, 2), Dtype.INT)
+            () -> new Ndarray(new Object[]{1, 2, 3}, shape, Dtype.INT)
         );
 
         assertTrue(exception.getMessage().contains("Data length does not match shape size"));
@@ -85,7 +85,8 @@ class NdarrayTest {
     void reshapeThrowsWhenRequestedShapeHasDifferentSize() {
         Ndarray array = new Ndarray(new Shape(2, 2), Dtype.FLOAT);
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> array.reshape(new Shape(3, 2)));
+        Shape shape = new Shape(3, 2);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> array.reshape(shape));
 
         assertTrue(exception.getMessage().contains("Cannot reshape"));
     }
@@ -107,10 +108,14 @@ class NdarrayTest {
         Ndarray first = new Ndarray(new Object[]{1.0, 2.0}, new Shape(2), Dtype.DOUBLE);
         Ndarray second = new Ndarray(new Object[]{1.0, 2.0}, new Shape(2), Dtype.DOUBLE);
         Ndarray third = new Ndarray(new Object[]{1.0, 3.0}, new Shape(2), Dtype.DOUBLE);
+        Ndarray fourth = new Ndarray(new Object[]{1.0, 2.0}, new Shape(2, 1), Dtype.DOUBLE);
+        Ndarray fifth = new Ndarray(new Object[]{1.0}, new Shape(1, 1), Dtype.DOUBLE);
 
         assertEquals(first, second);
         assertEquals(first, first);
         assertNotEquals(first, new Object());
+        assertNotEquals(first, fourth);
+        assertNotEquals(first, fifth);
         assertEquals(first.hashCode(), second.hashCode());
         assertNotEquals(first, third);
         assertTrue(first.toString().contains("Ndarray{"));
@@ -118,7 +123,8 @@ class NdarrayTest {
 
     @Test
     void bigDimCreateOverflow(){
-        assertThrows(IllegalArgumentException.class, () -> new Ndarray(new Shape((int) Math.pow(2, 31), (int) Math.pow(2, 31)), Dtype.INT));
+        Shape shape = new Shape((int) Math.pow(2, 31), (int) Math.pow(2, 31));
+        assertThrows(IllegalArgumentException.class, () -> new Ndarray(shape, Dtype.INT));
     }
 
     @Test
@@ -126,21 +132,22 @@ class NdarrayTest {
         Ndarray arrayFloat = new Ndarray(new Shape(2, 2), Dtype.FLOAT);
 
         arrayFloat.set(1F, 1, 1); 
-        assertEquals(arrayFloat.get(1, 1), 1F);
+        assertEquals(1F, arrayFloat.get(1, 1));
 
         // Weird cases
         arrayFloat.set(true, 1, 1); 
         arrayFloat.set(false, 1, 0); 
-        assertEquals(arrayFloat.get(1, 1), 1.0F);
-        assertEquals(arrayFloat.get(1, 0), 0.0F);
+        assertEquals(1.0F, arrayFloat.get(1, 1));
+        assertEquals(0.0F, arrayFloat.get(1, 0));
 
         arrayFloat.set("42", 1, 1); 
-        assertEquals(arrayFloat.get(1, 1), 42F);
+        assertEquals(42F, arrayFloat.get(1, 1));
 
-        assertThrows(IllegalArgumentException.class, () -> arrayFloat.set(new Object(), 1, 1)); 
+        Object object = new Object();
+        assertThrows(IllegalArgumentException.class, () -> arrayFloat.set(object, 1, 1));
 
         assertThrows(IllegalArgumentException.class, () -> arrayFloat.set("HEY", 1, 1)); 
-        assertEquals(arrayFloat.get(1, 1), 42F);
+        assertEquals(42F, arrayFloat.get(1, 1));
 
     }
 
@@ -149,21 +156,22 @@ class NdarrayTest {
         Ndarray arrayInt = new Ndarray(new Shape(2, 2), Dtype.INT);
 
         arrayInt.set(1, 1, 1); 
-        assertEquals(arrayInt.get(1, 1), 1);
+        assertEquals( 1, arrayInt.get(1, 1));
 
         // Weird cases
         arrayInt.set(true, 1, 1); 
         arrayInt.set(false, 1, 0); 
-        assertEquals(arrayInt.get(1, 1), 1);
-        assertEquals(arrayInt.get(1, 0), 0);
+        assertEquals(1, arrayInt.get(1, 1));
+        assertEquals(0, arrayInt.get(1, 0));
 
         arrayInt.set("42", 1, 1); 
-        assertEquals(arrayInt.get(1, 1), 42);
+        assertEquals(42, arrayInt.get(1, 1));
 
-        assertThrows(IllegalArgumentException.class, () -> arrayInt.set(new Object(), 1, 1)); 
+        Object object = new Object();
+        assertThrows(IllegalArgumentException.class, () -> arrayInt.set(object, 1, 1));
 
         assertThrows(IllegalArgumentException.class, () -> arrayInt.set("HEY", 1, 1)); 
-        assertEquals(arrayInt.get(1, 1), 42);
+        assertEquals(42, arrayInt.get(1, 1));
 
     }
 
@@ -172,21 +180,22 @@ class NdarrayTest {
         Ndarray arrayDouble = new Ndarray(new Shape(2, 2), Dtype.DOUBLE);
 
         arrayDouble.set(1F, 1, 1); 
-        assertEquals(arrayDouble.get(1, 1), 1d);
+        assertEquals(1d, arrayDouble.get(1, 1));
 
         // Weird cases
         arrayDouble.set(true, 1, 1); 
         arrayDouble.set(false, 1, 0); 
-        assertEquals(arrayDouble.get(1, 1), 1.0d);
-        assertEquals(arrayDouble.get(1, 0), 0.0d);
+        assertEquals(1.0d, arrayDouble.get(1, 1));
+        assertEquals(0.0d, arrayDouble.get(1, 0));
 
         arrayDouble.set("42", 1, 1); 
-        assertEquals(arrayDouble.get(1, 1), 42d);
+        assertEquals(42d, arrayDouble.get(1, 1));
 
-        assertThrows(IllegalArgumentException.class, () -> arrayDouble.set(new Object(), 1, 1)); 
+        Object object = new Object();
+        assertThrows(IllegalArgumentException.class, () -> arrayDouble.set(object, 1, 1));
 
         assertThrows(IllegalArgumentException.class, () -> arrayDouble.set("HEY", 1, 1)); 
-        assertEquals(arrayDouble.get(1, 1), 42d);
+        assertEquals(42d, arrayDouble.get(1, 1));
 
     }
 
@@ -194,7 +203,7 @@ class NdarrayTest {
     void testConstructDifferentTypeString() {
         Ndarray arrayString = new Ndarray(new Shape(2, 2), Dtype.STRING);
         arrayString.set("HEY", 1, 1); 
-        assertEquals(arrayString.get(1, 1), "HEY");
+        assertEquals("HEY", arrayString.get(1, 1));
     }
 
 
@@ -202,21 +211,22 @@ class NdarrayTest {
     void testConstructDifferentTypeBool() {
         Ndarray arrayBool = new Ndarray(new Shape(2, 2), Dtype.BOOLEAN);
         arrayBool.set(true, 1, 1); 
-        assertEquals(arrayBool.get(1, 1), true);
+        assertEquals(true, arrayBool.get(1, 1));
         arrayBool.set(false, 1, 1); 
-        assertEquals(arrayBool.get(1, 1), false);
+        assertEquals(false, arrayBool.get(1, 1));
 
         arrayBool.set(1, 1, 1); 
-        assertEquals(arrayBool.get(1, 1), true);
+        assertEquals(true, arrayBool.get(1, 1));
         arrayBool.set(0, 1, 1); 
-        assertEquals(arrayBool.get(1, 1), false);
+        assertEquals(false, arrayBool.get(1, 1));
 
         arrayBool.set("true", 1, 1); 
-        assertEquals(arrayBool.get(1, 1), true);
+        assertEquals(true, arrayBool.get(1, 1));
         arrayBool.set("false", 1, 1); 
 
+        Object object = new Object();
         assertThrows(IllegalArgumentException.class, () -> arrayBool.set("HEY", 1, 1)); 
-        assertThrows(IllegalArgumentException.class, () -> arrayBool.set(new Object(), 1, 1)); 
+        assertThrows(IllegalArgumentException.class, () -> arrayBool.set(object, 1, 1));
 
     }
 
@@ -246,11 +256,11 @@ class NdarrayTest {
             arrayInt1.set(3, 0, 1);
             arrayInt2.set(2, 0, 0);
             arrayInt2.set(3, 0, 1);
-            assertEquals(arrayInt1.add(arrayInt2), new Ndarray(new Object[]{4, 6}, new Shape(1, 2), type));
+            assertEquals(new Ndarray(new Object[]{4, 6}, new Shape(1, 2), type), arrayInt1.add(arrayInt2));
 
-            assertEquals(arrayInt1.subtract(arrayInt2), new Ndarray(new Object[]{0, 0}, new Shape(1, 2), type));
-            assertEquals(arrayInt1.multiply(arrayInt2), new Ndarray(new Object[]{4, 9}, new Shape(1, 2), type));
-            assertEquals(arrayInt1.divide(arrayInt2), new Ndarray(new Object[]{1, 1}, new Shape(1, 2), type));
+            assertEquals(new Ndarray(new Object[]{0, 0}, new Shape(1, 2), type), arrayInt1.subtract(arrayInt2));
+            assertEquals(new Ndarray(new Object[]{4, 9}, new Shape(1, 2), type), arrayInt1.multiply(arrayInt2));
+            assertEquals(new Ndarray(new Object[]{1, 1}, new Shape(1, 2), type), arrayInt1.divide(arrayInt2));
 
             arrayInt1.addInPlace(arrayInt2);
             assertEquals(arrayInt1, new Ndarray(new Object[]{4, 6}, new Shape(1, 2), type));
@@ -284,7 +294,7 @@ class NdarrayTest {
     }
 
     @Test
-    public void testAranngeBasic(){
+    void testAranngeBasic(){
         Ndarray arrayInt = Ndarray.arrange(5);
 
         assertEquals(arrayInt, new Ndarray( new Object[]{0,1,2,3,4}, new Shape(5), Dtype.INT));
@@ -298,7 +308,7 @@ class NdarrayTest {
 
 
     @Test
-    public void testOperationString(){
+    void testOperationString(){
         Ndarray arrayString1 = new Ndarray(new Shape(1, 2), Dtype.STRING);
         Ndarray arrayString2 = new Ndarray(new Shape(1, 2), Dtype.STRING);
         arrayString1.set("a", 0, 0);
@@ -315,6 +325,59 @@ class NdarrayTest {
         assertNotEquals(arrayString1, new Ndarray(new Object[]{"ab", "ba"}, new Shape(1, 2), Dtype.STRING));
         arrayString1.addInPlace(arrayString2);
         assertEquals(arrayString1, new Ndarray(new Object[]{"ab", "ba"}, new Shape(1, 2), Dtype.STRING));
+    }
+
+    @Test
+    void testNumpyString(){
+        Ndarray arrayString1 = new Ndarray(new Shape(1, 2), Dtype.STRING);
+        arrayString1.set("a", 0, 0);
+        arrayString1.set("b", 0, 1);
+        String result = arrayString1.toNumpyString();
+        assertEquals("[[a b ]]\n", result);
+
+        Ndarray arrayString2 = new Ndarray(new Shape(2, 2), Dtype.STRING);
+        arrayString2.set("b", 0, 0);
+        arrayString2.set("a", 0, 1);
+
+        arrayString2.set("a", 1, 0);
+        arrayString2.set("b", 1, 1);
+
+        result = arrayString2.toNumpyString();
+        assertEquals("[[b a ]\n[a b ]]\n", result);
+    }
+
+    @Test
+    void testArrayConstructor(){
+        ArrayList<Object> values = new ArrayList<Object>();
+        values.add(1f);
+        values.add(2f);
+        Ndarray arrayString1 = Ndarray.ndarray(values);
+        String result = arrayString1.toNumpyString();
+        assertEquals("[1.0 2.0 ]\n", result);
+
+        Shape shape = new Shape(1, 2);
+        arrayString1 = Ndarray.ndarray(values, shape);
+        result = arrayString1.toNumpyString();
+        assertEquals("[[1.0 2.0 ]]\n", result);
+
+        ArrayList<Object> valuesString = new ArrayList<Object>();
+        valuesString.add("a");
+        valuesString.add("b");
+        arrayString1 = Ndarray.ndarray(valuesString, shape, Dtype.STRING);
+        result = arrayString1.toNumpyString();
+        assertEquals("[[a b ]]\n", result);
+    }
+
+    @Test
+    void testZeroConstructor(){
+        Shape shape = new Shape(1, 2);
+        Ndarray array= Ndarray.zeros(shape);
+        String result = array.toNumpyString();
+        assertEquals("[[0.0 0.0 ]]\n", result);
+
+        array= Ndarray.zeros(shape, Dtype.INT);
+        result = array.toNumpyString();
+        assertEquals("[[0 0 ]]\n", result);
     }
 
 }
