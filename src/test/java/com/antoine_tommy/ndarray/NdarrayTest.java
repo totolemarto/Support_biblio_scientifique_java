@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+
 class NdarrayTest {
     @Test
     void createsArrayWithDefaultDoubleTypeAndZeroValues() {
@@ -106,10 +108,14 @@ class NdarrayTest {
         Ndarray first = new Ndarray(new Object[]{1.0, 2.0}, new Shape(2), Dtype.DOUBLE);
         Ndarray second = new Ndarray(new Object[]{1.0, 2.0}, new Shape(2), Dtype.DOUBLE);
         Ndarray third = new Ndarray(new Object[]{1.0, 3.0}, new Shape(2), Dtype.DOUBLE);
+        Ndarray fourth = new Ndarray(new Object[]{1.0, 2.0}, new Shape(2, 1), Dtype.DOUBLE);
+        Ndarray fifth = new Ndarray(new Object[]{1.0}, new Shape(1, 1), Dtype.DOUBLE);
 
         assertEquals(first, second);
         assertEquals(first, first);
         assertNotEquals(first, new Object());
+        assertNotEquals(first, fourth);
+        assertNotEquals(first, fifth);
         assertEquals(first.hashCode(), second.hashCode());
         assertNotEquals(first, third);
         assertTrue(first.toString().contains("Ndarray{"));
@@ -319,6 +325,59 @@ class NdarrayTest {
         assertNotEquals(arrayString1, new Ndarray(new Object[]{"ab", "ba"}, new Shape(1, 2), Dtype.STRING));
         arrayString1.addInPlace(arrayString2);
         assertEquals(arrayString1, new Ndarray(new Object[]{"ab", "ba"}, new Shape(1, 2), Dtype.STRING));
+    }
+
+    @Test
+    void testNumpyString(){
+        Ndarray arrayString1 = new Ndarray(new Shape(1, 2), Dtype.STRING);
+        arrayString1.set("a", 0, 0);
+        arrayString1.set("b", 0, 1);
+        String result = arrayString1.toNumpyString();
+        assertEquals("[[a b ]]\n", result);
+
+        Ndarray arrayString2 = new Ndarray(new Shape(2, 2), Dtype.STRING);
+        arrayString2.set("b", 0, 0);
+        arrayString2.set("a", 0, 1);
+
+        arrayString2.set("a", 1, 0);
+        arrayString2.set("b", 1, 1);
+
+        result = arrayString2.toNumpyString();
+        assertEquals("[[b a ]\n[a b ]]\n", result);
+    }
+
+    @Test
+    void testArrayConstructor(){
+        ArrayList<Object> values = new ArrayList<Object>();
+        values.add(1f);
+        values.add(2f);
+        Ndarray arrayString1 = Ndarray.ndarray(values);
+        String result = arrayString1.toNumpyString();
+        assertEquals("[1.0 2.0 ]\n", result);
+
+        Shape shape = new Shape(1, 2);
+        arrayString1 = Ndarray.ndarray(values, shape);
+        result = arrayString1.toNumpyString();
+        assertEquals("[[1.0 2.0 ]]\n", result);
+
+        ArrayList<Object> valuesString = new ArrayList<Object>();
+        valuesString.add("a");
+        valuesString.add("b");
+        arrayString1 = Ndarray.ndarray(valuesString, shape, Dtype.STRING);
+        result = arrayString1.toNumpyString();
+        assertEquals("[[a b ]]\n", result);
+    }
+
+    @Test
+    void testZeroConstructor(){
+        Shape shape = new Shape(1, 2);
+        Ndarray array= Ndarray.zeros(shape);
+        String result = array.toNumpyString();
+        assertEquals("[[0.0 0.0 ]]\n", result);
+
+        array= Ndarray.zeros(shape, Dtype.INT);
+        result = array.toNumpyString();
+        assertEquals("[[0 0 ]]\n", result);
     }
 
 }
