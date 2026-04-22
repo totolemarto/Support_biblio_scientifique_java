@@ -209,22 +209,25 @@ import com.antoine_tommy.ndarray.Dtype;
 import com.antoine_tommy.ndarray.Ndarray;
 import com.antoine_tommy.ndarray.Shape;
 
-<span class="nc" id="L7">public class Demo {</span>
+import java.util.logging.Logger;
+
+<span class="nc" id="L9">public class Demo {</span>
+<span class="nc" id="L10">    private static final Logger LOGGER = Logger.getLogger(Demo.class.getName());</span>
     public static void main(String[] args) {
-<span class="nc" id="L9">        System.out.println(&quot;=== NDARRAY DEMO ===&quot;);</span>
+<span class="nc" id="L12">        LOGGER.info(&quot;=== NDARRAY DEMO ===&quot;);</span>
 
-<span class="nc" id="L11">        Ndarray arrayString1 = new Ndarray(new Object[]{&quot;Hello&quot;}, new Shape(1, 1), Dtype.STRING);</span>
-<span class="nc" id="L12">        Ndarray arrayString2 = new Ndarray(new Object[]{&quot; world&quot;}, new Shape(1, 1), Dtype.STRING);</span>
+<span class="nc" id="L14">        Ndarray arrayString1 = new Ndarray(new Object[]{&quot;Hello&quot;}, new Shape(1, 1), Dtype.STRING);</span>
+<span class="nc" id="L15">        Ndarray arrayString2 = new Ndarray(new Object[]{&quot; world&quot;}, new Shape(1, 1), Dtype.STRING);</span>
 
-<span class="nc" id="L14">        System.out.println(&quot;On créer deux NDarray de String dont voici la représentation&quot;);</span>
-<span class="nc" id="L15">        System.out.println(arrayString1);</span>
-<span class="nc" id="L16">        System.out.println(arrayString2);</span>
+<span class="nc" id="L17">        LOGGER.info(&quot;On créer deux NDarray de String dont voici la représentation&quot;);</span>
+<span class="nc" id="L18">        LOGGER.info(arrayString1.toNumpyString());</span>
+<span class="nc" id="L19">        LOGGER.info(arrayString2.toNumpyString());</span>
 
-<span class="nc" id="L18">        System.out.println(&quot;Puis voici le résultat de l'addition de ces deux arrays&quot;);</span>
+<span class="nc" id="L21">        LOGGER.info(&quot;Puis voici le résultat de l'addition de ces deux arrays&quot;);</span>
 
-<span class="nc" id="L20">        System.out.println(arrayString1.add(arrayString2));</span>
+<span class="nc" id="L23">        LOGGER.info(arrayString1.add(arrayString2).toString());</span>
 
-<span class="nc" id="L22">        System.out.println(&quot;C'était super hein :) &quot;);</span>
-<span class="nc" id="L23">    }</span>
+<span class="nc" id="L25">        LOGGER.info(&quot;C'était super hein :) &quot;);</span>
+<span class="nc" id="L26">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
