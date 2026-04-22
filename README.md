@@ -79,6 +79,8 @@ Utiliser SonarQube pour l’analyse statique de code ✅
 
 Livraison continue (Maven) ✅
 
+Créer une image pour la reproductibilité (Docker) ✅
+
 ## Git Workflow
 
 In order to work collaboratively, we follow this workflow:
