@@ -220,14 +220,17 @@ import java.util.logging.Logger;
 <span class="nc" id="L15">        Ndarray arrayString2 = new Ndarray(new Object[]{&quot; world&quot;}, new Shape(1, 1), Dtype.STRING);</span>
 
 <span class="nc" id="L17">        LOGGER.info(&quot;On créer deux NDarray de String dont voici la représentation&quot;);</span>
-<span class="nc" id="L18">        LOGGER.info(arrayString1.toNumpyString());</span>
-<span class="nc" id="L19">        LOGGER.info(arrayString2.toNumpyString());</span>
+<span class="nc" id="L18">        String result = arrayString1.toNumpyString();</span>
+<span class="nc" id="L19">        LOGGER.info(result);</span>
+<span class="nc" id="L20">        result = arrayString2.toNumpyString();</span>
+<span class="nc" id="L21">        LOGGER.info(result);</span>
 
-<span class="nc" id="L21">        LOGGER.info(&quot;Puis voici le résultat de l'addition de ces deux arrays&quot;);</span>
+<span class="nc" id="L23">        LOGGER.info(&quot;Puis voici le résultat de l'addition de ces deux arrays&quot;);</span>
+<span class="nc" id="L24">        result = arrayString1.add(arrayString2).toString();</span>
 
-<span class="nc" id="L23">        LOGGER.info(arrayString1.add(arrayString2).toString());</span>
+<span class="nc" id="L26">        LOGGER.info(result);</span>
 
-<span class="nc" id="L25">        LOGGER.info(&quot;C'était super hein :) &quot;);</span>
-<span class="nc" id="L26">    }</span>
+<span class="nc" id="L28">        LOGGER.info(&quot;C'était super hein :) &quot;);</span>
+<span class="nc" id="L29">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
