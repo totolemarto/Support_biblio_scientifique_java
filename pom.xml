@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.antoine_tommy</groupId>
     <artifactId>yascl</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <name>yascl</name>
     <url>https://totolemarto.github.io/Support_biblio_scientifique_java/</url>
