@@ -385,8 +385,8 @@ public class Ndarray {
         toNumpyStringHelper(sb, 0, new int[shape.getDimensions().length]);
 
         int bracketLevel = 0;
-        int i = 0;
-        while (i++ < sb.length()) {
+        int i = -1;
+        while (++i < sb.length()) {
             char c = sb.charAt(i);
             if (c == ']') {
                 bracketLevel++;
