@@ -63,6 +63,12 @@ jobs:
           cp -r target/site/jacoco                     "public/${VERSION}/coverage"
           cp -r target/pit-reports                     "public/${VERSION}/mutation"
 
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+          path: gh-pages-branch
+
       - name: Update versions.json
         run: |
           python3 - <<'EOF'
@@ -70,7 +76,8 @@ jobs:
           from pathlib import Path
 
           tag = os.environ["VERSION_TAG"]
-          f = Path("public/versions.json")
+          f = Path("gh-pages-branch/versions.json")
+          output = Path("public/versions.json")
           data = json.loads(f.read_text()) if f.exists() else {"latest": None, "versions": []}
 
           if tag not in data["versions"]:
@@ -81,7 +88,7 @@ jobs:
                   data["versions"].insert(0, tag)
 
           data["latest"] = tag
-          f.write_text(json.dumps(data, indent=2))
+          output.write_text(json.dumps(data, indent=2))
           print(f"versions.json mis à jour : {data}")
           EOF
         env:
