@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.4](https://github.com/totolemarto/Support_biblio_scientifique_java/compare/v0.0.3...v0.0.4) (2026-04-23)
+
+
+###  Bug Fixes
+
+* **github-pages:** update versions.json path and add checkout step for gh-pages branch ([d6b217a](https://github.com/totolemarto/Support_biblio_scientifique_java/commit/d6b217aa8a5051904b921d1dfc650575f8f10c16))
+* **github-pages:** update versions.json path and add checkout step for gh-pages branch ([60e329b](https://github.com/totolemarto/Support_biblio_scientifique_java/commit/60e329be6ad7f378bb84bbf90f6914fba2218611))
+* **script:** remove unnecessary redirection logic in updateLinks function ([5aa0a1f](https://github.com/totolemarto/Support_biblio_scientifique_java/commit/5aa0a1f35b16476cc518092bd76ba8e37d49a597))
+
 ## [0.0.3](https://github.com/totolemarto/Support_biblio_scientifique_java/compare/v0.0.2...v0.0.3) (2026-04-22)
 
 
