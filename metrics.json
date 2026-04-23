@@ -1,7 +1,7 @@
 {
-  "version":   "0.0.3",
+  "version":   "0.0.4-SNAPSHOT",
   "coverage":  92,
   "tests":     49,
   "status":    "OK",
-  "timestamp": 1776900877
+  "timestamp": 1776902678
 }
